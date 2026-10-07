@@ -1,4 +1,6 @@
-# computer_store_app
+# computer-store
+
+This repository is part of Mobile Application Development midterm assignment for education purpose.
 
 A new Flutter project.
 
