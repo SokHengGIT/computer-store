@@ -1,0 +1,14 @@
+[
+  {
+    "id": "1",
+    "name": "MSI Katana 15",
+    "subtitle": "Core i7 13th Gen",
+    "specs": "RTX 4060 8GB",
+    "description": "High-performance gaming laptop with RTX graphics",
+    "unit": "pcs",
+    "price": 1199,
+    "imageUrl": "assets/images/new_arrivals/MSIKATANA15.png",
+    "rating": 5
+  }
+]
+

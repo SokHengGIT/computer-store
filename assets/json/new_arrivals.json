@@ -1,0 +1,35 @@
+[
+  {
+    "id": "1",
+    "name": "MSI Katana 15",
+    "subtitle": "Core i7 13th Gen",
+    "specs": "RTX 4060 8GB",
+    "description": "High-performance gaming laptop with RTX graphics",
+    "unit": "pcs",
+    "price": 1199,
+    "imageUrl": "assets/images/new_arrivals/MSIKATANA15.png",
+    "rating": 4
+  },
+  {
+    "id": "2",
+    "name": "iPhone 18 Pro Max 1TB",
+    "subtitle": "Dark Cherry",
+    "specs": "A20 Pro Chip",
+    "description": "Titanium design with advanced camera system",
+    "unit": "pcs",
+    "price": 1299,
+    "imageUrl": "assets/images/new_arrivals/IP18PM.png",
+    "rating": 4
+  },
+  {
+    "id": "3",
+    "name": "Brother HL-T4000DW",
+    "subtitle": "Refill Tank",
+    "specs": "Wireless A3 Color",
+    "description": "Refill tank wireless color inkjet printer",
+    "unit": "pcs",
+    "price": 499,
+    "imageUrl": "assets/images/new_arrivals/HL-T4000DW-R 1.png",
+    "rating": 4
+  }
+]

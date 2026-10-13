@@ -11,15 +11,38 @@ class ProductCard extends StatelessWidget {
     this.onAddTap,
   });
 
+  String _formatPrice(double price) {
+    if (price == price.roundToDouble()) {
+      final intPrice = price.toInt().toString();
+      final reg = RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))');
+      return '\$${intPrice.replaceAllMapped(reg, (Match m) => '${m[1]},')}';
+    }
+    return '\$${price.toStringAsFixed(2)}';
+  }
+
   @override
   Widget build(BuildContext context) {
+    final subtitleText = product.subtitle ?? '';
+    final specsText = product.specs ?? '';
+
     return Container(
-      width: 140, // Matches the Figma dimensions[cite: 24]
-      padding: const EdgeInsets.all(8),
+      width: 170,
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300), // Light grey border[cite: 24]
-        borderRadius: BorderRadius.circular(8),
         color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.08),
+            blurRadius: 15,
+            offset: const Offset(0, 4),
+          ),
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.02),
+            blurRadius: 4,
+            offset: const Offset(0, 1),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,7 +50,6 @@ class ProductCard extends StatelessWidget {
           // 1. Product Image
           Expanded(
             child: Center(
-              // Safely handles both web URLs and local asset images
               child: product.imageUrl.startsWith('http')
                   ? Image.network(
                       product.imageUrl,
@@ -44,47 +66,109 @@ class ProductCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          
+
           // 2. Product Name
           Text(
             product.name,
             style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
+              fontSize: 14,
+              fontWeight: FontWeight.w800,
+              color: Colors.black,
+              height: 1.2,
             ),
-            maxLines: 1,
+            maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
-          const SizedBox(height: 4),
-          
-          // 3. Price & Stars Row
+
+          // 3. Subtitle / Specs
+          if (subtitleText.isNotEmpty) ...[
+            const SizedBox(height: 3),
+            Text(
+              subtitleText,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: Colors.grey.shade600,
+                height: 1.2,
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+          if (specsText.isNotEmpty) ...[
+            const SizedBox(height: 2),
+            Text(
+              specsText,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: Colors.grey.shade600,
+                height: 1.2,
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+          const SizedBox(height: 8),
+
+          // 4. Price in gold/amber color
+          Text(
+            _formatPrice(product.price),
+            style: const TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFFE5A43B),
+            ),
+          ),
+          const SizedBox(height: 8),
+
+          // 5. Bottom Row: Circular Add Button & Stars Rating
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Price
-              Expanded(
-                child: Text(
-                  '\$${product.price.toStringAsFixed(2)}',
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w900,
-                    color: Colors.black,
+              // Circular Add Button with Drop Shadow
+              Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: onAddTap,
+                  borderRadius: BorderRadius.circular(22),
+                  child: Container(
+                    width: 44,
+                    height: 44,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.12),
+                          blurRadius: 8,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: const Icon(
+                      Icons.add,
+                      color: Colors.black,
+                      size: 24,
+                    ),
                   ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
                 ),
               ),
-              // Static stars matching the Figma layout[cite: 24]
+
+              // Star Rating matching Figma gold stars
               Row(
-                children: [
-                  Icon(Icons.star, size: 10, color: Colors.amber.shade600),
-                  Icon(Icons.star, size: 10, color: Colors.amber.shade600),
-                  Icon(Icons.star, size: 10, color: Colors.amber.shade600),
-                  Icon(Icons.star, size: 10, color: Colors.amber.shade600),
-                  Icon(Icons.star_border, size: 10, color: Colors.grey.shade400),
-                ],
+                children: List.generate(5, (index) {
+                  final isFilled = index < product.rating.round();
+                  return Padding(
+                    padding: const EdgeInsets.only(left: 1.5),
+                    child: Icon(
+                      Icons.star,
+                      size: 15,
+                      color: isFilled ? const Color(0xFFE5A43B) : Colors.grey.shade300,
+                    ),
+                  );
+                }),
               ),
             ],
           ),
