@@ -23,7 +23,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final subtitleText = product.subtitle ?? '';
-    final specsText = product.specs ?? '';
+    final specsText = product.specs?.values.join(' • ') ?? '';
 
     return Container(
       width: 170,

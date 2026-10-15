@@ -5,10 +5,10 @@ class Product {
   final String unit;
   final String description;
   final String? subtitle;
-  final String? specs;
+  final Map<String, dynamic>? specs; // Upgraded from String? to Map? for easy filtering
   final double price;
   final String imageUrl;
-  final double rating;
+  final double rating; // Perfect for the Figma UI
 
   const Product({
     required this.id,
@@ -29,7 +29,9 @@ class Product {
       unit: json['unit'] ?? '',
       description: json['description'] ?? '',
       subtitle: json['subtitle'],
-      specs: json['specs'],
+      specs: json['specs'] is Map
+          ? Map<String, dynamic>.from(json['specs'] as Map)
+          : (json['specs'] is String ? {'general': json['specs']} : null),
       price: (json['price'] as num?)?.toDouble() ?? 0.0,
       imageUrl: json['imageUrl'] ?? json['image'] ?? '',
       rating: (json['rating'] as num?)?.toDouble() ?? 4.0,

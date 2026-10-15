@@ -9,6 +9,22 @@
     "price": 1199,
     "imageUrl": "assets/images/new_arrivals/MSIKATANA15.png",
     "rating": 5
+  },
+  {
+    "id": "LPT-001",
+    "name": "ASUS ROG Strix G18",
+    "subtitle": "Core i7 14th Gen",
+    "description": "18-inch competitive gaming powerhouse.",
+    "price": 1699.99,
+    "imageUrl": "assets/images/laptops/rog_strix_g18.png",
+    "rating": 5,
+    "category": "Laptop",
+    "specs": {
+      "cpu": "Intel Core i7 14th Gen",
+      "gpu": "NVIDIA RTX 5060",
+      "ram": "16GB DDR5",
+      "storage": "1TB NVMe SSD",
+      "display": "18-inch 240Hz"
+    }
   }
 ]
-

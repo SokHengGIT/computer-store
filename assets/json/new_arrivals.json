@@ -31,5 +31,33 @@
     "price": 499,
     "imageUrl": "assets/images/new_arrivals/HL-T4000DW-R 1.png",
     "rating": 4
+  },
+  {
+    "id": "LPT-001",
+  "name": "ASUS ROG Strix G18",
+  "description": "18-inch competitive gaming powerhouse.",
+  "price": 1699.99,
+  "imageUrl": "assets/images/laptops/rog_strix_g18.png",
+  "rating": 4.5,
+  "specs": {
+    "cpu": "Intel Core i7 14th Gen",
+    "gpu": "NVIDIA RTX 5060",
+    "ram": "16GB DDR5"
+  }
+},
+{
+    "id": "DSK-001",
+    "name": "Custom Mid-Tower Rig",
+    "description": "Optimized for 1080p gaming and productivity.",
+    "price": 849.00,
+    "imageUrl": "assets/images/desktops/custom_mid_tower.png",
+    "category": "Desktop",
+    "specs": {
+      "cpu": "Intel Core i5-14400F",
+      "motherboard": "MSI B760",
+      "power_supply": "Antec Meta 550W",
+      "ram": "16GB DDR5",
+      "storage": "512GB M.2 SSD"
+    }
   }
 ]

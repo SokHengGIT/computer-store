@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../models/product.dart'; 
 import '../widgets/product_card.dart';
+import 'about_us_screen.dart';
 
 // 1. Define a quick model for your Navigation items (Matching Teacher's Structure)
 class NavItem {
@@ -65,8 +66,26 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<List<Product>> _loadProducts(String path) async {
     try {
       final String response = await rootBundle.loadString(path);
-      final List<dynamic> data = json.decode(response);
-      return data.map((json) => Product.fromJson(json)).toList();
+      final dynamic decoded = json.decode(response);
+      if (decoded is! List) return [];
+
+      final List<Product> products = [];
+      for (final item in decoded) {
+        if (item is Map<String, dynamic>) {
+          products.add(Product.fromJson(item));
+        } else if (item is Map) {
+          products.add(Product.fromJson(Map<String, dynamic>.from(item)));
+        } else if (item is List) {
+          for (final subItem in item) {
+            if (subItem is Map<String, dynamic>) {
+              products.add(Product.fromJson(subItem));
+            } else if (subItem is Map) {
+              products.add(Product.fromJson(Map<String, dynamic>.from(subItem)));
+            }
+          }
+        }
+      }
+      return products;
     } catch (e) {
       debugPrint("Error loading $path: $e");
       return [];
@@ -261,19 +280,19 @@ class _HomeScreenState extends State<HomeScreen> {
               _productSection(
                 products: _newArrivals,
                 isLoading: _isLoading,
-                trailingText: 'More >',
+                title: 'New Arrivals',
               ),
               
               _productSection(
                 products: _topRated,
                 isLoading: _isLoading,
-                trailingText: 'More >',
+                title: 'Top Rated',
               ),
 
               _productSection(
                 products: _gamingLaptops,
                 isLoading: _isLoading,
-                trailingText: 'More >',
+                title: 'Gaming Laptops',
               ),
             ],
           ),
@@ -344,50 +363,78 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  // Helper widget
+
   Widget _productSection({
     required List<Product> products,
     required bool isLoading,
-    required String trailingText,
+    required String title,
   }) {
-    if (products.isEmpty && !isLoading) {
-      return const SizedBox.shrink(); 
+    if (title.isEmpty && products.isEmpty && !isLoading) {
+      return const SizedBox.shrink();
     }
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.end, 
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Text(
-            trailingText,
-            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black),
-          ),
-        ),
-        const SizedBox(height: 12),
+        if (title.isNotEmpty) ...[
+          _buildSectionTitle(title),
+          const SizedBox(height: 20),
+        ],
         isLoading
             ? const SizedBox(
-                height: 295,
+                height: 250,
                 child: Center(
-                  child: CircularProgressIndicator(color: Colors.black), 
+                  child: CircularProgressIndicator(color: Color(0xFF53B175)),
                 ),
               )
             : SizedBox(
-                height: 295,
-                child: ListView.separated(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: products.length, 
-                  separatorBuilder: (context, index) => const SizedBox(width: 14),
-                  itemBuilder: (context, index) {
-                    return ProductCard(
-                      product: products[index], 
-                      onAddTap: () {},
-                    );
-                  },
-                ),
+                height: 250,
+                child: products.isEmpty
+                    ? const Center(child: Text('No products available.'))
+                    : ListView.separated(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: products.length,
+                        separatorBuilder: (context, index) =>
+                            const SizedBox(width: 15),
+                        itemBuilder: (context, index) {
+                          return ProductCard(
+                            product: products[index],
+                            onAddTap: () {},
+                          );
+                        },
+                      ),
               ),
-        const SizedBox(height: 24),
+        const SizedBox(height: 30),
       ],
+    );
+  }
+
+  Widget _buildSectionTitle(String title) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF181725),
+            ),
+          ),
+          const Text(
+            'More >',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -431,10 +478,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 _buildDrawerItem(Icons.manage_search_outlined, 'Track service'),
                 _buildDrawerItem(Icons.description_outlined, 'Terms and Conditions'),
                 _buildDrawerItem(
-                  Icons.info_outline, 
-                  'About Us', 
+                  Icons.info_outline,
+                  'About Us',
                   onTap: () {
-                  }
+                    Navigator.pop(context); // Closes the sidebar smoothly
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const AboutUsScreen()),
+                    );
+                  },
                 ),
                 _buildDrawerItem(Icons.logout, 'Log out'),
               ],
