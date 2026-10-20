@@ -1,11 +1,15 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ui';
+import 'package:computer_store_app/services/menu_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import '../models/product.dart'; 
 import '../widgets/product_card.dart';
-import 'about_us_screen.dart';
+import '../screens/about_us_screen.dart';
+import '../screens/pc_finder_screen.dart';
+import '../screens/cart_screen.dart';
 
 // 1. Define a quick model for your Navigation items (Matching Teacher's Structure)
 class NavItem {
@@ -28,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageController = PageController(viewportFraction: 1);
   int _currentPage = 0;
   int _currentNavIndex = 0;
+  Timer? _timer;
 
   bool _isLoading = true;
   List<Product> _newArrivals = [];
@@ -40,19 +45,33 @@ class _HomeScreenState extends State<HomeScreen> {
     'assets/images/banner3.png',
   ];
 
-  // Map your bottom navigation data here
-  final List<NavItem> _navItems = [
-    NavItem(label: 'Home', icon: Icons.home_outlined, activeIcon: Icons.home),
-    NavItem(label: 'Goods', icon: Icons.inventory_2_outlined, activeIcon: Icons.inventory_2),
-    NavItem(label: 'Order', icon: Icons.receipt_long_outlined, activeIcon: Icons.receipt_long),
-    NavItem(label: 'Basket', icon: Icons.shopping_cart_outlined, activeIcon: Icons.shopping_cart),
-    NavItem(label: 'Account', icon: Icons.person_outline, activeIcon: Icons.person),
-  ];
+  // // Map your bottom navigation data here
+  // final List<NavItem> _navItems = [
+  //   NavItem(label: 'Home', icon: Icons.home_outlined, activeIcon: Icons.home),
+  //   NavItem(label: 'Goods', icon: Icons.inventory_2_outlined, activeIcon: Icons.inventory_2),
+  //   NavItem(label: 'Order', icon: Icons.receipt_long_outlined, activeIcon: Icons.receipt_long),
+  //   NavItem(label: 'Basket', icon: Icons.shopping_cart_outlined, activeIcon: Icons.shopping_cart),
+  //   NavItem(label: 'Account', icon: Icons.person_outline, activeIcon: Icons.person),
+  // ];
 
   @override
   void initState() {
     super.initState();
     _loadAllData();
+
+    _timer = Timer.periodic(const Duration(seconds: 2), (Timer timer) {
+      if(_currentPage < _banners.length - 1){
+        _currentPage++;
+      } else{
+        _currentPage = 0;
+      }
+
+      _pageController.animateToPage(
+        _currentPage, 
+        duration: const Duration(milliseconds: 500), 
+        curve: Curves.easeInOut,
+      );
+    });
   }
 
   Future<void> _loadAllData() async {
@@ -94,12 +113,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
+    _timer?.cancel();
     _pageController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    context.read<MenuService>().setPreviousPage(0);
     return Scaffold(
       backgroundColor: Colors.white,
       drawer: _buildSidebarDrawer(),
@@ -112,6 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: const Icon(Icons.menu, color: Colors.black),
               onPressed: () {
                 Scaffold.of(context).openDrawer();
+                // context.read<MenuService>().onPageChanged(context.read<MenuService>().previousPage);
               },
             );
           },
@@ -124,7 +146,16 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.shopping_cart_outlined, color: Colors.black),
-            onPressed: () {},
+            onPressed: () {
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => const CartScreen()),
+              // );
+              _currentNavIndex = 3;
+              setState(() {
+                
+              });
+            },
           ),
         ],
       ),
@@ -299,33 +330,40 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
 
-      // 3. Dynamic Bottom Navigation (Matching Teacher's .map logic)
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.grey,
-        showSelectedLabels: true,
-        showUnselectedLabels: true,
-        selectedFontSize: 12,
-        unselectedFontSize: 12,
-        currentIndex: _currentNavIndex,
-        onTap: (index) {
-          setState(() {
-            _currentNavIndex = index;
-          });
-        },
-        items: _navItems.map((item) {
-          return BottomNavigationBarItem(
-            icon: Icon(item.icon),
-            activeIcon: Icon(item.activeIcon),
-            label: item.label,
-          );
-        }).toList(),
-      ),
+      // // 3. Dynamic Bottom Navigation (Matching Teacher's .map logic)
+      // bottomNavigationBar: BottomNavigationBar(
+      //   type: BottomNavigationBarType.fixed,
+      //   selectedItemColor: Colors.black,
+      //   unselectedItemColor: Colors.grey,
+      //   showSelectedLabels: true,
+      //   showUnselectedLabels: true,
+      //   selectedFontSize: 12,
+      //   unselectedFontSize: 12,
+      //   currentIndex: _currentNavIndex,
+      //   onTap: (index) {
+      //     if (index == 3){
+      //       Navigator.push(
+      //         context,
+      //         MaterialPageRoute(builder: (context) => const CartScreen()),
+      //       );
+      //     }else{
+      //       setState(() {
+      //       _currentNavIndex = index;
+      //     });
+      //     }
+      //   },
+      //   items: _navItems.map((item) {
+      //     return BottomNavigationBarItem(
+      //       icon: Icon(item.icon),
+      //       activeIcon: Icon(item.activeIcon),
+      //       label: item.label,
+      //     );
+      //   }).toList(),
+      // ),
     );
   }
 
-  // --- Helper Methods ---
+  // Helper Method
 
   Widget _buildCategoryIcon(IconData icon, String label) {
     return Column(
@@ -452,17 +490,18 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CircleAvatar(
+                  backgroundImage: AssetImage('assets/images/users/hengrithik.png'),
                   radius: 40,
                   backgroundColor: Colors.grey,
                 ),
                 SizedBox(height: 12),
                 Text(
                   'USER',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
                 ),
                 Text(
                   'user@gmail.com',
-                  style: TextStyle(fontSize: 12, color: Colors.black87),
+                  style: TextStyle(fontSize: 12, color: Colors.white),
                 ),
               ],
             ),
@@ -473,7 +512,18 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.symmetric(vertical: 10),
               children: [
                 _buildDrawerItem(Icons.home_outlined, 'Home'),
-                _buildDrawerItem(Icons.person_outline, 'Profile'), // Fixed 'Profire' typo!
+                _buildDrawerItem(Icons.person_outline, 'Profile'),
+                _buildDrawerItem(
+  Icons.manage_search_outlined, 
+  'PC Finder Assistant', 
+  onTap: () {
+    Navigator.pop(context); 
+    Navigator.push(
+      context, 
+      MaterialPageRoute(builder: (context) => const PcFinderScreen()),
+    );
+  }
+),
                 _buildDrawerItem(Icons.location_on_outlined, 'Address'),
                 _buildDrawerItem(Icons.manage_search_outlined, 'Track service'),
                 _buildDrawerItem(Icons.description_outlined, 'Terms and Conditions'),

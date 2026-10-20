@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/product.dart';
+import '../services/cart_service.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
@@ -23,7 +24,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final subtitleText = product.subtitle ?? '';
-    final specsText = product.specs?.values.join(' • ') ?? '';
+    final specsText = product.specsText;
 
     return Container(
       width: 170,
@@ -131,7 +132,18 @@ class ProductCard extends StatelessWidget {
               Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  onTap: onAddTap,
+                  onTap: () {
+                    CartService().addToCart(product);
+                    onAddTap?.call();
+                    
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('${product.name} added to cart!'),
+                        duration: const Duration(seconds: 1),
+                      ),
+                    );
+                  },
                   borderRadius: BorderRadius.circular(22),
                   child: Container(
                     width: 44,

@@ -34,17 +34,18 @@
   },
   {
     "id": "LPT-001",
-  "name": "ASUS ROG Strix G18",
-  "description": "18-inch competitive gaming powerhouse.",
-  "price": 1699.99,
-  "imageUrl": "assets/images/laptops/rog_strix_g18.png",
-  "rating": 4.5,
-  "specs": {
-    "cpu": "Intel Core i7 14th Gen",
-    "gpu": "NVIDIA RTX 5060",
-    "ram": "16GB DDR5"
-  }
-},
+    "name": "ASUS ROG Strix G18",
+    "description": "18-inch competitive gaming powerhouse.",
+    "price": 1699.99,
+    "imageUrl": "assets/images/laptops/rog_strix_g18.png",
+    "rating": 4.5,
+    "category": "Laptop",
+    "specs": {
+      "cpu": "Intel Core i7 14th Gen",
+      "gpu": "NVIDIA RTX 5060",
+      "ram": "16GB DDR5"
+    }
+  },
 {
     "id": "DSK-001",
     "name": "Custom Mid-Tower Rig",
