@@ -1,3 +1,4 @@
+import 'package:computer_store_app/screens/checkout_step_1_screen.dart';
 import 'package:computer_store_app/services/menu_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -76,7 +77,12 @@ class _CartScreenState extends State<CartScreen> {
                         style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const CheckoutStep1Screen()),
+                            );
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white, 
                           foregroundColor: Colors.black,
