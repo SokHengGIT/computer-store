@@ -5,6 +5,7 @@ import 'package:computer_store_app/services/menu_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import '../models/product.dart'; 
 import '../widgets/product_card.dart';
 import '../screens/about_us_screen.dart';
@@ -20,6 +21,18 @@ class NavItem {
   NavItem({required this.label, required this.icon, required this.activeIcon});
 }
 
+class SliderItem {
+  final String imageUrl;
+
+  SliderItem({required this.imageUrl});
+
+  factory SliderItem.fromJson(Map<String, dynamic> json) {
+    return SliderItem(
+      imageUrl: json['imageUrl'] ?? json['image'] ?? '',
+    );
+  }
+}
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -28,21 +41,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // 2. Fixed Banner Viewport to match teacher's peek effect
-  final PageController _pageController = PageController(viewportFraction: 1);
-  int _currentPage = 0;
+  int currentSlide = 0;
   int _currentNavIndex = 0;
-  Timer? _timer;
 
   bool _isLoading = true;
   List<Product> _newArrivals = [];
   List<Product> _topRated = [];
   List<Product> _gamingLaptops = [];
 
-  final List<String> _banners = [
-    'assets/images/banner.png', 
-    'assets/images/banner2.png',
-    'assets/images/banner3.png',
+  List<SliderItem> _sliders = [
+    SliderItem(imageUrl: 'assets/images/banner.png'),
+    SliderItem(imageUrl: 'assets/images/banner2.png'),
+    SliderItem(imageUrl: 'assets/images/banner3.png'),
   ];
 
   // // Map your bottom navigation data here
@@ -58,28 +68,27 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _loadAllData();
-
-    _timer = Timer.periodic(const Duration(seconds: 2), (Timer timer) {
-      if(_currentPage < _banners.length - 1){
-        _currentPage++;
-      } else{
-        _currentPage = 0;
-      }
-
-      _pageController.animateToPage(
-        _currentPage, 
-        duration: const Duration(milliseconds: 500), 
-        curve: Curves.easeInOut,
-      );
-    });
   }
 
   Future<void> _loadAllData() async {
     setState(() => _isLoading = true);
+    _sliders = await _loadSliders('assets/json/sliders.json');
     _newArrivals = await _loadProducts('assets/json/new_arrivals.json');
     _topRated = await _loadProducts('assets/json/top_rated.json');
     _gamingLaptops = await _loadProducts('assets/json/gaming_laptops.json');
     setState(() => _isLoading = false);
+  }
+
+  Future<List<SliderItem>> _loadSliders(String path) async {
+    try {
+      final String response = await rootBundle.loadString(path);
+      final List<dynamic> data = json.decode(response);
+      final loaded = data.map((json) => SliderItem.fromJson(json)).toList();
+      return loaded.isNotEmpty ? loaded : _sliders;
+    } catch (e) {
+      debugPrint("Error loading $path: $e");
+      return _sliders;
+    }
   }
 
   Future<List<Product>> _loadProducts(String path) async {
@@ -113,8 +122,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
-    _timer?.cancel();
-    _pageController.dispose();
     super.dispose();
   }
 
@@ -186,71 +193,68 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const SizedBox(height: 16),
 
-              // Banner Section (Matches Teacher's Peek Effect)
+              // Banner Section
               SizedBox(
-                height: 180,
+                height: 160,
                 child: Stack(
+                  alignment: Alignment.center,
                   children: [
-                    PageView(
-                      scrollDirection: Axis.horizontal,
-                      controller: _pageController,
-                      onPageChanged: (index) {
-                        setState(() {
-                          _currentPage = index;
-                        });
-                      },
-                      children: [
-                        for (var bannerPath in _banners)
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20), // Reduced to 8.0 for peek effect
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: Container(
-                                color: Colors.black, 
-                                child: Image.asset(
-                                  bannerPath,
-                                  width: double.infinity,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (context, error, stackTrace) => 
-                                      const Center(child: Text('Promo Banner', style: TextStyle(color: Colors.white))),
-                                ),
-                              ),
-                            ),
+                    CarouselSlider(
+                      items: List.generate(
+                        _sliders.length,
+                        (index) => ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.asset(
+                            _sliders[index].imageUrl,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
                           ),
-                      ],
+                        ),
+                      ),
+                      options: CarouselOptions(
+                        viewportFraction: 0.9,
+                        height: 160,
+                        enlargeCenterPage: true,
+                        autoPlay: true,
+                        autoPlayInterval: const Duration(seconds: 3),
+                        onPageChanged: (index, reason) {
+                          currentSlide = index;
+                          setState(() {});
+                        },
+                      ),
                     ),
-                    
                     Positioned(
                       bottom: 12,
-                      left: 0,
-                      right: 0,
-                      child: Center(
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(15),
-                          child: BackdropFilter(
-                            filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                              decoration: BoxDecoration(
-                                color: Colors.white.withValues(alpha: 0.3),
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: List.generate(
-                                  _banners.length,
-                                  (index) => AnimatedContainer(
-                                    duration: const Duration(milliseconds: 300),
-                                    curve: Curves.ease,
-                                    margin: const EdgeInsets.symmetric(horizontal: 8),
-                                    width: _currentPage == index ? 18 : 8,
-                                    height: 8,
-                                    decoration: BoxDecoration(
-                                      color: _currentPage == index
-                                          ? Colors.white 
-                                          : Colors.grey.shade400,
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 6,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.black.withValues(alpha: 0.25),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: List.generate(
+                                _sliders.length,
+                                (index) => AnimatedContainer(
+                                  duration: const Duration(milliseconds: 300),
+                                  curve: Curves.easeInOut,
+                                  margin: const EdgeInsets.symmetric(
+                                    horizontal: 3,
+                                  ),
+                                  width: currentSlide == index ? 18 : 6,
+                                  height: 6,
+                                  decoration: BoxDecoration(
+                                    color: currentSlide == index
+                                        ? Colors.lightBlueAccent
+                                        : Colors.grey.shade400,
+                                    borderRadius: BorderRadius.circular(3),
                                   ),
                                 ),
                               ),

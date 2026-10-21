@@ -2,6 +2,7 @@ import 'package:computer_store_app/screens/home_screen.dart';
 import 'package:computer_store_app/screens/product_listing_screen.dart';
 import 'package:computer_store_app/screens/cart_screen.dart';
 import 'package:computer_store_app/services/menu_service.dart';
+import 'package:computer_store_app/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -59,7 +60,7 @@ class _MenuScreenState extends State<MenuScreen> {
               ProductListingScreen(), // 1: Goods
               _PlaceholderTab(title: 'Orders', icon: Icons.receipt_long_outlined), // 2: Order
               CartScreen(), // 3: Basket
-              _PlaceholderTab(title: 'Account', icon: Icons.person_outline), // 4: Account
+              ProfileScreen(), // 4: Account
             ],
           ),
           bottomNavigationBar: BottomNavigationBar(

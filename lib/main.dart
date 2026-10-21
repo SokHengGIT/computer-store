@@ -5,6 +5,7 @@ import 'package:computer_store_app/screens/product_listing_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'screens/home_screen.dart';
+import 'screens/splash_screen.dart';
 
 void main() {
   runApp(const ComputerStoreApp());
@@ -26,7 +27,7 @@ class ComputerStoreApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
           useMaterial3: true,
         ),
-        home: const MenuScreen(),
+        home: const SplashScreen(),
       ),
     );
   }
