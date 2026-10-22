@@ -42,7 +42,7 @@ class _CheckoutStep1ScreenState extends State<CheckoutStep1Screen> {
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF4A849A), // Phin's teal blue active color[cite: 4]
+                        color: Colors.black,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: const Center(
@@ -127,7 +127,7 @@ class _CheckoutStep1ScreenState extends State<CheckoutStep1Screen> {
               );
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF7CB8CE), // Phin's light blue button color[cite: 4]
+              backgroundColor: Colors.black,
               padding: const EdgeInsets.symmetric(vertical: 16),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),

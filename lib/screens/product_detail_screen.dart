@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../models/product.dart';
-import '../services/cart_service.dart';
+
+
 import '../services/menu_service.dart';
-import 'package:provider/provider.dart';
 import '../providers/cart_provider.dart';
+import '../services/cart_service.dart' hide CartItem;
 
 class ProductDetailScreen extends StatefulWidget {
   final Map<String, dynamic> product;
@@ -361,20 +361,37 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     child: SizedBox(
                       height: 46,
                       child: ElevatedButton(
-                        onPressed: () {
-                          final prod = Product.fromJson(widget.product);
-                          for (int i = 0; i < quantity; i++) {
-                            CartService().addToCart(prod);
-                          }
-                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('$name added to cart!'),
-                              duration: const Duration(seconds: 1),
-                              behavior: SnackBarBehavior.floating,
-                            ),
-                          );
-                        },
+                onPressed: () {
+                  // Create a CartItem from the current screen's data
+                  final newItem = CartItem(
+                    id: DateTime.now().toString(), // Generates a unique ID
+                    name: name,
+                    subtitle: widget.product['category'] ?? 'PC Hardware',
+                    price: price,
+                    image: imageUrl,
+                    quantity: quantity, // The quantity selected on this screen
+                  );
+
+                  // Send it to the global state
+                  Provider.of<CartProvider>(context, listen: false).addToCart(newItem);
+                  CartService().addRawItem(
+                    id: newItem.id,
+                    name: newItem.name,
+                    subtitle: newItem.subtitle,
+                    price: newItem.price,
+                    imageUrl: newItem.image,
+                    quantity: newItem.quantity,
+                  );
+
+                  // Show a success message
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('${quantity}x $name added to basket!'),
+                      backgroundColor: const Color(0xFF53B175),
+                      duration: const Duration(seconds: 2),
+                    ),
+                  );
+                },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF3880EC),
                           foregroundColor: Colors.white,

@@ -75,7 +75,7 @@ class _FilterSettingsSheetState extends State<FilterSettingsSheet> {
             min: 0,
             max: 5000,
             divisions: 50,
-            activeColor: const Color(0xFF4A849A), // Signature teal
+            activeColor: Colors.black,
             inactiveColor: Colors.grey.shade300,
             onChanged: (RangeValues values) {
               setState(() {
@@ -99,7 +99,7 @@ class _FilterSettingsSheetState extends State<FilterSettingsSheet> {
               return ChoiceChip(
                 label: Text(category),
                 selected: isSelected,
-                selectedColor: const Color(0xFF4A849A),
+                selectedColor: Colors.black,
                 backgroundColor: Colors.white,
                 labelStyle: TextStyle(
                   color: isSelected ? Colors.white : Colors.black87,
@@ -108,7 +108,7 @@ class _FilterSettingsSheetState extends State<FilterSettingsSheet> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                   side: BorderSide(
-                    color: isSelected ? const Color(0xFF4A849A) : Colors.grey.shade300,
+                    color: isSelected ? Colors.black : Colors.grey.shade300,
                   ),
                 ),
                 onSelected: (selected) {

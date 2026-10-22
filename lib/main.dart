@@ -1,13 +1,12 @@
-import 'package:computer_store_app/screens/menu_screen.dart';
-import 'package:computer_store_app/services/menu_service.dart';
-import 'package:computer_store_app/screens/cart_screen.dart';
-import 'package:computer_store_app/screens/product_listing_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'screens/home_screen.dart';
-import 'screens/splash_screen.dart';
-import 'package:provider/provider.dart';
+
+// Services & Providers
+import 'package:computer_store_app/services/menu_service.dart';
 import 'providers/cart_provider.dart';
+
+// Screens
+import 'screens/splash_screen.dart';
 
 void main() {
   runApp(const ComputerStoreApp());
@@ -20,7 +19,8 @@ class ComputerStoreApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => MenuService(),)
+        ChangeNotifierProvider(create: (context) => MenuService()),
+        ChangeNotifierProvider(create: (context) => CartProvider()),
       ],
       child: MaterialApp(
         title: 'Computer Store',
@@ -29,7 +29,7 @@ class ComputerStoreApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
           useMaterial3: true,
         ),
-        home: const SplashScreen(),
+        home: const SplashScreen(), // Starts the app at the splash screen
       ),
     );
   }

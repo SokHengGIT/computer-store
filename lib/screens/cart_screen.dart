@@ -3,6 +3,7 @@ import 'package:computer_store_app/services/menu_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/cart_service.dart';
+import '../providers/cart_provider.dart' hide CartItem;
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -78,6 +79,7 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                       ElevatedButton(
                         onPressed: () {
+                          Provider.of<CartProvider>(context, listen: false).syncWithCartService(_cartService.items);
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => const CheckoutStep1Screen()),
@@ -193,7 +195,7 @@ class _CartScreenState extends State<CartScreen> {
                   children: [
                     Text(
                       '\$${item.product.price.toStringAsFixed(0)} ',
-                      style: const TextStyle(fontWeight: FontWeight.w900, color: Colors.blueAccent),
+                      style: const TextStyle(fontWeight: FontWeight.w900, color: Colors.black),
                     ),
                   ],
                 ),
@@ -231,7 +233,7 @@ class _CartScreenState extends State<CartScreen> {
       child: Container(
         padding: const EdgeInsets.all(2),
         decoration: BoxDecoration(
-          color: icon == Icons.add ? Colors.blueAccent : Colors.grey.shade200,
+          color: icon == Icons.add ? Colors.black : Colors.grey.shade200,
           borderRadius: BorderRadius.circular(4),
         ),
         child: Icon(

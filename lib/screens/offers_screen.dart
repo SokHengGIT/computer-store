@@ -62,7 +62,7 @@ class _OffersScreenState extends State<OffersScreen> {
                         width: double.infinity,
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) => Container(
-                          color: const Color(0xFF4A849A),
+                          color: Colors.black,
                           child: const Center(
                             child: Icon(Icons.local_offer, color: Colors.white, size: 40),
                           ),
@@ -112,7 +112,7 @@ class _OffersScreenState extends State<OffersScreen> {
                               height: 6,
                               decoration: BoxDecoration(
                                 color: currentSlide == index
-                                    ? const Color(0xFF4A849A)
+                                    ? Colors.black
                                     : Colors.grey.shade400,
                                 borderRadius: BorderRadius.circular(3),
                               ),
@@ -229,7 +229,7 @@ class _OffersScreenState extends State<OffersScreen> {
                       flex: 3,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF4A849A),
+                          backgroundColor: Colors.black,
                           padding: const EdgeInsets.symmetric(vertical: 10),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),

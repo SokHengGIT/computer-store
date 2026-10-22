@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'menu_screen.dart';
 import 'register_mobile_screen.dart';
 
 class RegisterScreen extends StatefulWidget {

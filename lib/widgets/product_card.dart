@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../models/product.dart';
 import '../services/cart_service.dart';
+import 'package:provider/provider.dart';
+import '../providers/cart_provider.dart' hide CartItem;
 import '../screens/product_detail_screen.dart';
 
 class ProductCard extends StatelessWidget {
@@ -149,6 +151,9 @@ class ProductCard extends StatelessWidget {
                   child: InkWell(
                     onTap: () {
                       CartService().addToCart(product);
+                      try {
+                        Provider.of<CartProvider>(context, listen: false).addProduct(product);
+                      } catch (_) {}
                       onAddTap?.call();
                       
                       ScaffoldMessenger.of(context).hideCurrentSnackBar();

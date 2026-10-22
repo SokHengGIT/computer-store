@@ -39,7 +39,7 @@ class ProfileScreen extends StatelessWidget {
                       child: Container(
                         padding: const EdgeInsets.all(4),
                         decoration: BoxDecoration(
-                          color: const Color(0xFF4A849A), // Teal matching the design
+                          color: Colors.black,
                           shape: BoxShape.circle,
                           border: Border.all(color: Colors.white, width: 2),
                         ),
@@ -70,7 +70,7 @@ class ProfileScreen extends StatelessWidget {
                     icon: const Icon(Icons.edit_outlined, color: Colors.white, size: 18),
                     label: const Text('Edit Profile', style: TextStyle(color: Colors.white, fontSize: 16)),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF4A849A), 
+                      backgroundColor: Colors.black, 
                       padding: const EdgeInsets.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
@@ -94,7 +94,7 @@ class ProfileScreen extends StatelessWidget {
                 // List Items (Strictly matching the Figma design)
                 _buildListTile(
                   Icons.email, 
-                  Colors.blue, 
+                  Colors.black, 
                   'Inbox', 
                   'Message & notification',
                   onTap: () {
@@ -106,7 +106,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 _buildListTile(
                   Icons.confirmation_num_outlined, 
-                  const Color(0xFF4A849A), 
+                  Colors.black, 
                   'Offers & promo code', 
                   'View available deals',
                   onTap: () { // Add this tap handler!
@@ -118,7 +118,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 _buildListTile(
                   Icons.card_giftcard, 
-                  const Color(0xFF4A849A), 
+                  Colors.black, 
                   'My Orders', 
                   'Track your purchase',
                   onTap: (){
@@ -130,13 +130,13 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 _buildListTile(
                   Icons.favorite_border, 
-                  const Color(0xFF4A849A), 
+                  Colors.black, 
                   'Wishtlist', // Restored Heng's exact spelling
                   'Your saved products'
                 ),
                 _buildListTile(
                   Icons.settings_outlined, 
-                  const Color(0xFF4A849A), 
+                  Colors.black, 
                   'Setting', 
                   'Account & app settings',
                   onTap: () { // Add this tap handler!

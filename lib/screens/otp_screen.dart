@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'login_screen.dart';
 import 'create_password_screen.dart';
 
 class OtpScreen extends StatefulWidget {

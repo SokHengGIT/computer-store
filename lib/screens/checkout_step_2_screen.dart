@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/cart_provider.dart' hide CartItem;
+import '../services/cart_service.dart';
 import 'thank_you_screen.dart'; // We will build this next!
 
 class CheckoutStep2Screen extends StatefulWidget {
@@ -59,7 +62,7 @@ class _CheckoutStep2ScreenState extends State<CheckoutStep2Screen> {
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF4A849A), // Phin's teal blue active color[cite: 2]
+                        color: Colors.black,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: const Center(
@@ -108,13 +111,18 @@ class _CheckoutStep2ScreenState extends State<CheckoutStep2Screen> {
           padding: const EdgeInsets.all(24.0),
           child: ElevatedButton(
             onPressed: () {
+              final cartProvider = Provider.of<CartProvider>(context, listen: false);
+              cartProvider.syncWithCartService(CartService().items);
+              cartProvider.placeOrder();
+              CartService().clear();
+
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const ThankYouScreen()),
               );
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF7CB8CE), // Light blue button[cite: 2]
+              backgroundColor: Colors.black,
               padding: const EdgeInsets.symmetric(vertical: 16),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),

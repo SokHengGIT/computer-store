@@ -73,7 +73,7 @@ class InboxScreen extends StatelessWidget {
       leading: Container(
         padding: const EdgeInsets.all(12),
         decoration: const BoxDecoration(
-          color: Color(0xFF4A849A), // Teal background matching the design
+          color: Colors.black,
           shape: BoxShape.circle,
         ),
         child: const Icon(Icons.mail_outline, color: Colors.white, size: 24),
@@ -103,7 +103,7 @@ class InboxScreen extends StatelessWidget {
               width: 10,
               height: 10,
               decoration: const BoxDecoration(
-                color: Color(0xFF4A849A),
+                color: Colors.black,
                 shape: BoxShape.circle,
               ),
             ),

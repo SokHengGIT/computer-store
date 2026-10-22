@@ -5,8 +5,7 @@ class OrderDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Exact cyan brand color used in this mockup
-    const Color primaryCyan = Color.fromARGB(255, 0, 0, 0); 
+    const Color primaryThemeColor = Colors.black;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -18,7 +17,7 @@ class OrderDetailsScreen extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
-          'Order Detail/View', // Exact phrasing from mockup
+          'Order Detail/View',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
         ),
         centerTitle: true,
@@ -38,14 +37,14 @@ class OrderDetailsScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: primaryCyan, width: 1.5), // Cyan outline
+                border: Border.all(color: primaryThemeColor, width: 1.5),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildTimelineStep(title: 'Order Status', isFirst: true, color: primaryCyan),
-                  _buildTimelineStep(title: 'Order Tracking', color: primaryCyan),
-                  _buildTimelineStep(title: 'Comfirmed', isLast: true, color: primaryCyan), // Preserved typo
+                  _buildTimelineStep(title: 'Order Status', isFirst: true, color: primaryThemeColor),
+                  _buildTimelineStep(title: 'Order Tracking', color: primaryThemeColor),
+                  _buildTimelineStep(title: 'Confirmed', isLast: true, color: primaryThemeColor),
                 ],
               ),
             ),
@@ -54,7 +53,7 @@ class OrderDetailsScreen extends StatelessWidget {
             // --- BOTTOM SECTION: ORDER SUMMARY TABLE ---
             Container(
               decoration: BoxDecoration(
-                color: Colors.grey.shade50, // Slight off-white inner background
+                color: Colors.grey.shade50,
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
@@ -66,41 +65,41 @@ class OrderDetailsScreen extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  // Cyan Table Header
+                  // Black Table Header
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
                     decoration: const BoxDecoration(
-                      color: primaryCyan,
+                      color: primaryThemeColor,
                       borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
                     ),
                     child: const Row(
                       children: [
-                        Expanded(flex: 2, child: Text('Product', style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w500, fontSize: 13))),
-                        Expanded(flex: 3, child: Text('Iterm', style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w500, fontSize: 13))), // Preserved typo
-                        Expanded(flex: 1, child: Text('Price', textAlign: TextAlign.right, style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w500, fontSize: 13))),
+                        Expanded(flex: 2, child: Text('Product', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13))),
+                        Expanded(flex: 3, child: Text('Item', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13))),
+                        Expanded(flex: 1, child: Text('Price', textAlign: TextAlign.right, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13))),
                       ],
                     ),
                   ),
-                  
-                  // Product List Rows (Hardcoded to match the exact receipt in the mockup)
+
+                  // Product List Rows
                   _buildReceiptRow(Icons.memory, '2x Samsung SSD 250GB', '\$500'),
                   _buildReceiptRow(Icons.keyboard, '1x ROG Strix Scope TKL', '\$150'),
                   _buildReceiptRow(Icons.mouse, '1x ASUS ROG Harpe', '\$100'),
                   _buildReceiptRow(Icons.laptop_mac, '1x ASUS ROG Strix G15 G513', '\$1700', isLast: true),
 
-                  // Cyan Footer / Grand Total
+                  // Black Footer / Grand Total
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
                     decoration: const BoxDecoration(
-                      color: primaryCyan,
+                      color: primaryThemeColor,
                       borderRadius: BorderRadius.vertical(bottom: Radius.circular(16)),
                     ),
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text('Grand Total : ', style: TextStyle(color: Colors.black87, fontSize: 15)),
+                        Text('Grand Total : ', style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold)),
                         SizedBox(width: 8),
-                        Text('\$2450', style: TextStyle(color: Colors.black87, fontSize: 15)),
+                        Text('\$2450', style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold)),
                       ],
                     ),
                   ),
@@ -125,32 +124,25 @@ class OrderDetailsScreen extends StatelessWidget {
       children: [
         Column(
           children: [
-            // Top connecting line
             Container(
               width: 2,
               height: isFirst ? 0 : 20,
               color: isFirst ? Colors.transparent : color,
             ),
-            // The solid cyan circle with checkmark
             Container(
               width: 20,
               height: 20,
-              decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               child: const Icon(Icons.check, color: Colors.white, size: 14),
             ),
-            // Bottom connecting line
             Container(
               width: 2,
-              height: isLast ? 0 : 40, 
+              height: isLast ? 0 : 40,
               color: isLast ? Colors.transparent : color,
             ),
           ],
         ),
         const SizedBox(width: 16),
-        // Step Title aligned with the circle
         Padding(
           padding: EdgeInsets.only(top: isFirst ? 0 : 20),
           child: Text(
@@ -162,7 +154,7 @@ class OrderDetailsScreen extends StatelessWidget {
     );
   }
 
-  // --- HELPER: RECEIPT TABLE ROW ---
+  // --- HELPER: RECEIPT ROW ---
   Widget _buildReceiptRow(IconData icon, String title, String price, {bool isLast = false}) {
     return Container(
       decoration: BoxDecoration(
@@ -177,15 +169,13 @@ class OrderDetailsScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
       child: Row(
         children: [
-          // Product Image Placeholder
           Expanded(
             flex: 2,
             child: Align(
               alignment: Alignment.centerLeft,
-              child: Icon(icon, size: 40, color: Colors.black87),
+              child: Icon(icon, color: Colors.black87, size: 30),
             ),
           ),
-          // Quantity & Item Name
           Expanded(
             flex: 3,
             child: Text(
@@ -193,7 +183,6 @@ class OrderDetailsScreen extends StatelessWidget {
               style: const TextStyle(fontSize: 12, color: Colors.black87),
             ),
           ),
-          // Price
           Expanded(
             flex: 1,
             child: Text(
