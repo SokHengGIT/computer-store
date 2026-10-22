@@ -71,4 +71,21 @@ class Product {
       rating: (json['rating'] as num?)?.toDouble() ?? 4.0,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'unit': unit,
+      'description': description,
+      'subtitle': subtitle,
+      'category': category,
+      'specs': specsText.isNotEmpty ? specsText : (subtitle ?? ''),
+      'rawSpecs': specs,
+      'price': price,
+      'imageUrl': imageUrl,
+      'image': imageUrl,
+      'rating': rating,
+    };
+  }
 }

@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import '../models/product.dart';
 import '../services/cart_service.dart';
+import '../screens/product_detail_screen.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
   final VoidCallback? onAddTap;
+  final VoidCallback? onTap;
 
   const ProductCard({
     super.key,
     required this.product,
     this.onAddTap,
+    this.onTap,
   });
 
   String _formatPrice(double price) {
@@ -26,165 +29,178 @@ class ProductCard extends StatelessWidget {
     final subtitleText = product.subtitle ?? '';
     final specsText = product.specsText;
 
-    return Container(
-      width: 170,
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.08),
-            blurRadius: 15,
-            offset: const Offset(0, 4),
-          ),
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.02),
-            blurRadius: 4,
-            offset: const Offset(0, 1),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // 1. Product Image
-          Expanded(
-            child: Center(
-              child: product.imageUrl.startsWith('http')
-                  ? Image.network(
-                      product.imageUrl,
-                      fit: BoxFit.contain,
-                      errorBuilder: (context, error, stackTrace) =>
-                          const Icon(Icons.computer, size: 50, color: Colors.grey),
-                    )
-                  : Image.asset(
-                      product.imageUrl,
-                      fit: BoxFit.contain,
-                      errorBuilder: (context, error, stackTrace) =>
-                          const Icon(Icons.computer, size: 50, color: Colors.grey),
-                    ),
-            ),
-          ),
-          const SizedBox(height: 8),
-
-          // 2. Product Name
-          Text(
-            product.name,
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w800,
-              color: Colors.black,
-              height: 1.2,
-            ),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ),
-
-          // 3. Subtitle / Specs
-          if (subtitleText.isNotEmpty) ...[
-            const SizedBox(height: 3),
-            Text(
-              subtitleText,
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w600,
-                color: Colors.grey.shade600,
-                height: 1.2,
+    return GestureDetector(
+      onTap: onTap ??
+          () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProductDetailScreen(
+                  product: product.toJson(),
+                ),
               ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
+            );
+          },
+      child: Container(
+        width: 170,
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.08),
+              blurRadius: 15,
+              offset: const Offset(0, 4),
+            ),
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.02),
+              blurRadius: 4,
+              offset: const Offset(0, 1),
             ),
           ],
-          if (specsText.isNotEmpty) ...[
-            const SizedBox(height: 2),
-            Text(
-              specsText,
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w600,
-                color: Colors.grey.shade600,
-                height: 1.2,
-              ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
-          const SizedBox(height: 8),
-
-          // 4. Price in gold/amber color
-          Text(
-            _formatPrice(product.price),
-            style: const TextStyle(
-              fontSize: 17,
-              fontWeight: FontWeight.w800,
-              color: Color(0xFFE5A43B),
-            ),
-          ),
-          const SizedBox(height: 8),
-
-          // 5. Bottom Row: Circular Add Button & Stars Rating
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // Circular Add Button with Drop Shadow
-              Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: () {
-                    CartService().addToCart(product);
-                    onAddTap?.call();
-                    
-                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('${product.name} added to cart!'),
-                        duration: const Duration(seconds: 1),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // 1. Product Image
+            Expanded(
+              child: Center(
+                child: product.imageUrl.startsWith('http')
+                    ? Image.network(
+                        product.imageUrl,
+                        fit: BoxFit.contain,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(Icons.computer, size: 50, color: Colors.grey),
+                      )
+                    : Image.asset(
+                        product.imageUrl,
+                        fit: BoxFit.contain,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(Icons.computer, size: 50, color: Colors.grey),
                       ),
-                    );
-                  },
-                  borderRadius: BorderRadius.circular(22),
-                  child: Container(
-                    width: 44,
-                    height: 44,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.12),
-                          blurRadius: 8,
-                          offset: const Offset(0, 3),
+              ),
+            ),
+            const SizedBox(height: 8),
+
+            // 2. Product Name
+            Text(
+              product.name,
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w800,
+                color: Colors.black,
+                height: 1.2,
+              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+
+            // 3. Subtitle / Specs
+            if (subtitleText.isNotEmpty) ...[
+              const SizedBox(height: 3),
+              Text(
+                subtitleText,
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.grey.shade600,
+                  height: 1.2,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+            if (specsText.isNotEmpty) ...[
+              const SizedBox(height: 2),
+              Text(
+                specsText,
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.grey.shade600,
+                  height: 1.2,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+            const SizedBox(height: 8),
+
+            // 4. Price in gold/amber color
+            Text(
+              _formatPrice(product.price),
+              style: const TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.w800,
+                color: Color(0xFFE5A43B),
+              ),
+            ),
+            const SizedBox(height: 8),
+
+            // 5. Bottom Row: Circular Add Button & Stars Rating
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // Circular Add Button with Drop Shadow
+                Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: () {
+                      CartService().addToCart(product);
+                      onAddTap?.call();
+                      
+                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('${product.name} added to cart!'),
+                          duration: const Duration(seconds: 1),
                         ),
-                      ],
-                    ),
-                    child: const Icon(
-                      Icons.add,
-                      color: Colors.black,
-                      size: 24,
+                      );
+                    },
+                    borderRadius: BorderRadius.circular(22),
+                    child: Container(
+                      width: 44,
+                      height: 44,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.12),
+                            blurRadius: 8,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: const Icon(
+                        Icons.add,
+                        color: Colors.black,
+                        size: 24,
+                      ),
                     ),
                   ),
                 ),
-              ),
 
-              // Star Rating matching Figma gold stars
-              Row(
-                children: List.generate(5, (index) {
-                  final isFilled = index < product.rating.round();
-                  return Padding(
-                    padding: const EdgeInsets.only(left: 1.5),
-                    child: Icon(
-                      Icons.star,
-                      size: 15,
-                      color: isFilled ? const Color(0xFFE5A43B) : Colors.grey.shade300,
-                    ),
-                  );
-                }),
-              ),
-            ],
-          ),
-        ],
+                // Star Rating matching Figma gold stars
+                Row(
+                  children: List.generate(5, (index) {
+                    final isFilled = index < product.rating.round();
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 1.5),
+                      child: Icon(
+                        Icons.star,
+                        size: 15,
+                        color: isFilled ? const Color(0xFFE5A43B) : Colors.grey.shade300,
+                      ),
+                    );
+                  }),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

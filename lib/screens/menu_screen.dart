@@ -1,4 +1,5 @@
 import 'package:computer_store_app/screens/home_screen.dart';
+import 'package:computer_store_app/screens/my_orders_screen.dart';
 import 'package:computer_store_app/screens/product_listing_screen.dart';
 import 'package:computer_store_app/screens/cart_screen.dart';
 import 'package:computer_store_app/services/menu_service.dart';
@@ -58,7 +59,7 @@ class _MenuScreenState extends State<MenuScreen> {
             children: const [
               HomeScreen(), // 0: Home
               ProductListingScreen(), // 1: Goods
-              _PlaceholderTab(title: 'Orders', icon: Icons.receipt_long_outlined), // 2: Order
+              MyOrdersScreen(), // 2: Order
               CartScreen(), // 3: Basket
               ProfileScreen(), // 4: Account
             ],

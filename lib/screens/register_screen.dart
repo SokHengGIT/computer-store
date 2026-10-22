@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'menu_screen.dart'; // To route into the app after successful creation
+import 'menu_screen.dart';
+import 'register_mobile_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -114,10 +115,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Routes directly into the main app layout as a logged-in user
-                    Navigator.pushReplacement(
+                    // Navigate to the Mobile Verification step
+                    Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const MenuScreen()),
+                      MaterialPageRoute(builder: (context) => const RegisterMobileScreen()),
                     );
                   },
                   style: ElevatedButton.styleFrom(

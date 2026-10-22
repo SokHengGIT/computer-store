@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'login_screen.dart'; // We will route back to login after completion for now
+import 'login_screen.dart';
+import 'create_password_screen.dart';
 
 class OtpScreen extends StatefulWidget {
   const OtpScreen({super.key});
@@ -99,12 +100,9 @@ class _OtpScreenState extends State<OtpScreen> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    // For now, this returns the user to the Login screen.
-                    // If you have a "Create New Password" screen, route there instead.
-                    Navigator.pushAndRemoveUntil(
+                    Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => const LoginScreen()),
-                      (Route<dynamic> route) => false,
+                      MaterialPageRoute(builder: (context) => const CreatePasswordScreen()),
                     );
                   },
                   style: ElevatedButton.styleFrom(

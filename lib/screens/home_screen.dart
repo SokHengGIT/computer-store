@@ -10,7 +10,7 @@ import '../models/product.dart';
 import '../widgets/product_card.dart';
 import '../screens/about_us_screen.dart';
 import '../screens/pc_finder_screen.dart';
-import '../screens/cart_screen.dart';
+
 
 // 1. Define a quick model for your Navigation items (Matching Teacher's Structure)
 class NavItem {
@@ -42,7 +42,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int currentSlide = 0;
-  int _currentNavIndex = 0;
+
 
   bool _isLoading = true;
   List<Product> _newArrivals = [];
@@ -158,7 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
               //   context,
               //   MaterialPageRoute(builder: (context) => const CartScreen()),
               // );
-              _currentNavIndex = 3;
+              context.read<MenuService>().onPageChanged(3);
               setState(() {
                 
               });
