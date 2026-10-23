@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-// Import your screens here
-import '../screens/pc_finder_screen.dart'; // Adjust path if needed
-import '../screens/about_us_screen.dart'; // Adjust path if needed
+// Import your services
+import '../services/menu_service.dart';
+
+// Import your screens
+import '../screens/pc_finder_screen.dart'; 
+import '../screens/about_us_screen.dart'; 
+import '../screens/address_screen.dart';
+import '../screens/track_service_screen.dart';
+import '../screens/terms_conditions_screen.dart';
 
 class MainDrawer extends StatelessWidget {
   const MainDrawer({super.key});
@@ -16,7 +23,7 @@ class MainDrawer extends StatelessWidget {
           // User Profile Header
           Container(
             width: double.infinity,
-            color: Colors.black87,
+            color: const Color(0xFF222222), // Dark grey/black background
             padding: const EdgeInsets.only(top: 70, bottom: 30),
             child: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -33,7 +40,7 @@ class MainDrawer extends StatelessWidget {
                 ),
                 Text(
                   'user@gmail.com',
-                  style: TextStyle(fontSize: 12, color: Colors.white),
+                  style: TextStyle(fontSize: 12, color: Colors.white70),
                 ),
               ],
             ),
@@ -44,11 +51,22 @@ class MainDrawer extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.symmetric(vertical: 10),
               children: [
-                _buildDrawerItem(Icons.home_outlined, 'Home', onTap: () {
-                  Navigator.pop(context);
-                  // Optionally route back to home if not already there
-                }),
-                _buildDrawerItem(Icons.person_outline, 'Profile'),
+                _buildDrawerItem(
+                  Icons.home_outlined, 
+                  'Home', 
+                  onTap: () {
+                    Navigator.pop(context); // Close the drawer
+                    context.read<MenuService>().onPageChanged(0); // Switch to Home Tab
+                  }
+                ),
+                _buildDrawerItem(
+                  Icons.person_outline, 
+                  'Profile',
+                  onTap: () {
+                    Navigator.pop(context); // Close the drawer
+                    context.read<MenuService>().onPageChanged(4); // Switch to Profile Tab
+                  }
+                ),
                 _buildDrawerItem(
                   Icons.manage_search_outlined,
                   'PC Finder Assistant',
@@ -60,69 +78,39 @@ class MainDrawer extends StatelessWidget {
                     );
                   },
                 ),
-                
-                // // --- NEW: CATEGORY SECTION ---
-                // const Padding(
-                //   padding: EdgeInsets.only(left: 16, top: 16, bottom: 8),
-                //   child: Text(
-                //     'SHOP BY CATEGORY',
-                //     style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.grey),
-                //   ),
-                // ),
-                // _buildDrawerItem(
-                //   Icons.computer,
-                //   'Gaming PCs', //[cite: 6]
-                //   onTap: () {
-                //     Navigator.pop(context);
-                //     Navigator.push(
-                //       context,
-                //       MaterialPageRoute(
-                //         builder: (context) => const CategoryScreen(
-                //           categoryTitle: 'Gaming PCs', //[cite: 6]
-                //           bannerImagePath: 'assets/images/gaming_pc_banner.jpg',
-                //         ),
-                //       ),
-                //     );
-                //   },
-                // ),
-                // _buildDrawerItem(
-                //   Icons.developer_board,
-                //   'GPUs', //[cite: 6]
-                //   onTap: () {
-                //     Navigator.pop(context);
-                //     Navigator.push(
-                //       context,
-                //       MaterialPageRoute(
-                //         builder: (context) => const CategoryScreen(
-                //           categoryTitle: 'GPUs', //[cite: 6]
-                //           bannerImagePath: 'assets/images/gpu_banner.jpg',
-                //         ),
-                //       ),
-                //     );
-                //   },
-                // ),
-                // _buildDrawerItem(
-                //   Icons.memory,
-                //   'Components', //[cite: 6]
-                //   onTap: () {
-                //     Navigator.pop(context);
-                //     Navigator.push(
-                //       context,
-                //       MaterialPageRoute(
-                //         builder: (context) => const CategoryScreen(
-                //           categoryTitle: 'Components', //[cite: 6]
-                //           bannerImagePath: 'assets/images/components_banner.jpg',
-                //         ),
-                //       ),
-                //     );
-                //   },
-                // ),
-                // const Divider(),
-                // // --- END CATEGORY SECTION ---
-
-                _buildDrawerItem(Icons.location_on_outlined, 'Address'),
-                _buildDrawerItem(Icons.manage_search_outlined, 'Track service'),
-                _buildDrawerItem(Icons.description_outlined, 'Terms and Conditions'),
+                _buildDrawerItem(
+                  Icons.location_on_outlined, 
+                  'Address',
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const AddressScreen()),
+                    );
+                  }
+                ),
+                _buildDrawerItem(
+                  Icons.receipt_long_outlined, 
+                  'Track service',
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const TrackServiceScreen()),
+                    );
+                  }
+                ),
+                _buildDrawerItem(
+                  Icons.description_outlined, 
+                  'Terms and Conditions',
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const TermsConditionsScreen()),
+                    );
+                  }
+                ),
                 _buildDrawerItem(
                   Icons.info_outline,
                   'About Us',
@@ -134,7 +122,15 @@ class MainDrawer extends StatelessWidget {
                     );
                   },
                 ),
-                _buildDrawerItem(Icons.logout, 'Log out'),
+                const SizedBox(height: 16),
+                _buildDrawerItem(
+                  Icons.logout, 
+                  'Log out',
+                  onTap: () {
+                    Navigator.pop(context);
+                    // Add logout navigation logic here when ready
+                  }
+                ),
               ],
             ),
           )

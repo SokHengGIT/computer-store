@@ -12,8 +12,10 @@ class MenuService extends ChangeNotifier {
   Widget? get customPage => _customPage;
 
   void onPageChanged(int index) {
-    _previousPage = _currentPage; // Save the state before moving
-    _currentPage = index;
+    if (_currentPage != index) {
+      _previousPage = _currentPage; // Save the state before moving
+      _currentPage = index;
+    }
     _customPage = null; 
     notifyListeners();
   }
@@ -31,12 +33,18 @@ class MenuService extends ChangeNotifier {
   // The teacher's custom Go Back function!
   void goBack() {
     if (_customPage != null) {
-      // If we are looking at a category, clear it to reveal the main tabs again
+      // If we are looking at a category/custom page, clear it to reveal the main tabs again
       _customPage = null;
       notifyListeners();
     } else {
-      // Otherwise, return to the previous tab index
-      _currentPage = _previousPage;
+      // Otherwise, return to the previous tab index (or home if already matched)
+      if (_currentPage == _previousPage) {
+        _currentPage = 0;
+      } else {
+        final target = _previousPage;
+        _previousPage = 0;
+        _currentPage = target;
+      }
       notifyListeners();
     }
   }

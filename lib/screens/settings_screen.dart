@@ -1,4 +1,13 @@
+import 'package:computer_store_app/screens/dark_mode_screen.dart';
+import 'package:computer_store_app/screens/help_support_screen.dart';
+import 'package:computer_store_app/screens/notifications_screen.dart';
+import 'package:computer_store_app/screens/privacy_policy_screen.dart';
 import 'package:flutter/material.dart';
+
+// Import your new screens
+import '../screens/personal_information_screen.dart';
+import '../screens/change_password_screen.dart';
+import '../screens/language_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -15,7 +24,7 @@ class SettingsScreen extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
-          'Setting', // Matching Heng's singular spelling
+          'Setting', 
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
         ),
         centerTitle: true,
@@ -28,26 +37,97 @@ class SettingsScreen extends StatelessWidget {
             children: [
               // ACCOUNT SECTION
               _buildSectionHeader('ACCOUNT'),
-              _buildSettingItem(icon: Icons.person_outline, title: 'Personal Information'),
-              _buildSettingItem(icon: Icons.shopping_bag_outlined, title: 'Account Security'), // Matches the exact bag icon in the design
-              _buildSettingItem(icon: Icons.edit_outlined, title: 'Change Password'),
+              _buildSettingItem(
+                context: context,
+                icon: Icons.person_outline, 
+                title: 'Personal Information',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const PersonalInformationScreen()),
+                  );
+                }
+              ),
+              _buildSettingItem(
+                context: context,
+                icon: Icons.shopping_bag_outlined, 
+                title: 'Account Security'
+              ), 
+              _buildSettingItem(
+                context: context,
+                icon: Icons.edit_outlined, 
+                title: 'Change Password',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ChangePasswordScreen()),
+                  );
+                }
+              ),
               const SizedBox(height: 24),
 
               // PREFERENCE SECTION
               _buildSectionHeader('PREFERENCE'),
-              _buildSettingItem(icon: Icons.notifications_none, title: 'Notifications'),
               _buildSettingItem(
+                context: context,
+                icon: Icons.notifications_none, 
+                title: 'Notifications',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const NotificationsScreen()),
+                  );
+                }
+              ),
+              _buildSettingItem(
+                context: context,
                 icon: Icons.language, 
                 title: 'Language', 
-                trailingText: 'English', // Shows current language selection
+                trailingText: 'English', 
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LanguageScreen()),
+                  );
+                }
               ),
-              _buildSettingItem(icon: Icons.dark_mode_outlined, title: 'Dark Mode'),
+              _buildSettingItem(
+                context: context,
+                icon: Icons.dark_mode_outlined, 
+                title: 'Dark Mode',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const DarkModeScreen()),
+                  );
+                }
+              ),
               const SizedBox(height: 24),
 
               // OTHER SECTION
               _buildSectionHeader('OTHER'),
-              _buildSettingItem(icon: Icons.insert_drive_file_outlined, title: 'Privacy Policy'),
-              _buildSettingItem(icon: Icons.info_outline, title: 'Help & Support'),
+              _buildSettingItem(
+                context: context,
+                icon: Icons.insert_drive_file_outlined, 
+                title: 'Privacy Policy',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const PrivacyPolicyScreen()),
+                  );
+                }
+              ),
+              _buildSettingItem(
+                context: context,
+                icon: Icons.info_outline, 
+                title: 'Help & Support',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HelpSupportScreen()),
+                  );
+                }
+              ),
               const SizedBox(height: 40),
 
               // LOG OUT BUTTON
@@ -55,15 +135,13 @@ class SettingsScreen extends StatelessWidget {
                 width: double.infinity,
                 child: OutlinedButton(
                   onPressed: () {
-                    // Placeholder for future logout logic (clearing tokens, etc.)
-                    // For now, it will pop back to the home screen
                     Navigator.of(context).popUntil((route) => route.isFirst);
                   },
                   style: OutlinedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     side: const BorderSide(color: Colors.red, width: 1.5),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30), // Pill shaped
+                      borderRadius: BorderRadius.circular(30), 
                     ),
                   ),
                   child: const Text(
@@ -84,7 +162,6 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-  // Helper method for grey section headers
   Widget _buildSectionHeader(String title) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0),
@@ -99,16 +176,27 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-  // Helper method for standard setting rows
+  // Updated to accept context and an optional onTap callback
   Widget _buildSettingItem({
+    required BuildContext context,
     required IconData icon,
     required String title,
     String? trailingText,
+    VoidCallback? onTap,
   }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0),
       child: InkWell(
-        onTap: () {}, // Make rows tappable
+        onTap: onTap ?? () {
+          // Fallback for unbuilt screens so the app feels responsive during the presentation
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('$title coming soon!'),
+              duration: const Duration(seconds: 1),
+            ),
+          );
+        },
         child: Row(
           children: [
             Icon(icon, color: Colors.black87, size: 22),

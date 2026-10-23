@@ -38,7 +38,17 @@ class ProductCard extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => ProductDetailScreen(
-                  product: product.toJson(),
+                  product: {
+                    'id': product.id,
+                    'name': product.name,
+                    'description': product.description,
+                    'imageUrl': product.imageUrl,
+                    'image': product.imageUrl, // Safe fallback
+                    'price': product.price,
+                    'rating': product.rating,
+                    'specs': product.specsText.isNotEmpty ? product.specsText : (product.subtitle ?? ''),
+                    'category': product.category,
+                  },
                 ),
               ),
             );

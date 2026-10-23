@@ -18,7 +18,7 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    context.read<MenuService>().setPreviousPage(3);
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -27,7 +27,7 @@ class _CartScreenState extends State<CartScreen> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.black, size: 20),
           onPressed: () {
-            context.read<MenuService>().onPageChanged(context.read<MenuService>().previousPage);
+            context.read<MenuService>().goBack();
           },
         ),
         title: const Text(

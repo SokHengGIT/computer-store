@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ui';
+import 'package:computer_store_app/screens/section_products_screen.dart';
 import 'package:computer_store_app/services/menu_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -128,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    context.read<MenuService>().setPreviousPage(0);
+
     return Scaffold(
       backgroundColor: Colors.white,
       drawer: const MainDrawer(),
@@ -318,18 +319,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 products: _newArrivals,
                 isLoading: _isLoading,
                 title: 'New Arrivals',
+                jsonPath: 'assets/json/new_arrivals.json',
               ),
               
               _productSection(
                 products: _topRated,
                 isLoading: _isLoading,
                 title: 'Top Rated',
+                jsonPath: 'assets/json/top_rated.json',
               ),
 
               _productSection(
                 products: _gamingLaptops,
                 isLoading: _isLoading,
                 title: 'Gaming Laptops',
+                jsonPath: 'assets/json/gaming_laptops.json',
               ),
             ],
           ),
@@ -419,12 +423,11 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // Helper widget
-
   Widget _productSection({
     required List<Product> products,
     required bool isLoading,
     required String title,
+    required String jsonPath,
   }) {
     if (title.isEmpty && products.isEmpty && !isLoading) {
       return const SizedBox.shrink();
@@ -434,40 +437,45 @@ class _HomeScreenState extends State<HomeScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (title.isNotEmpty) ...[
-          _buildSectionTitle(title),
-          const SizedBox(height: 20),
-        ],
-        isLoading
-            ? const SizedBox(
-                height: 250,
-                child: Center(
-                  child: CircularProgressIndicator(color: Color(0xFF53B175)),
-                ),
-              )
-            : SizedBox(
-                height: 250,
-                child: products.isEmpty
-                    ? const Center(child: Text('No products available.'))
-                    : ListView.separated(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: products.length,
-                        separatorBuilder: (context, index) =>
-                            const SizedBox(width: 15),
-                        itemBuilder: (context, index) {
-                          return ProductCard(
-                            product: products[index],
-                            onAddTap: () {},
-                          );
-                        },
-                      ),
+          _buildSectionTitle(title, onTap: () {
+            // THE ROUTING GOES HERE, WHERE jsonPath EXISTS!
+            context.read<MenuService>().pushCustomPage(
+              SectionProductsScreen(
+                title: title,
+                jsonPath: jsonPath,
               ),
-        const SizedBox(height: 30),
+            );
+          }),
+          const SizedBox(height: 16),
+        ],
+        // RESTORED: The horizontal scrolling list of products
+        if (isLoading)
+          const Center(child: CircularProgressIndicator(color: Colors.black))
+        else if (products.isEmpty)
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text('No products available.', style: TextStyle(color: Colors.grey)),
+          )
+        else
+          SizedBox(
+            height: 260, // Adjust this height if your ProductCard gets clipped
+            child: ListView.separated(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              scrollDirection: Axis.horizontal,
+              itemCount: products.length,
+              separatorBuilder: (context, index) => const SizedBox(width: 16),
+              itemBuilder: (context, index) {
+                // Renders your custom product card for each item
+                return ProductCard(product: products[index]); 
+              },
+            ),
+          ),
+        const SizedBox(height: 24), // Spacing before the next section
       ],
     );
   }
 
-  Widget _buildSectionTitle(String title) {
+  Widget _buildSectionTitle(String title, {required VoidCallback onTap}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Row(
@@ -481,18 +489,22 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Color(0xFF181725),
             ),
           ),
-          const Text(
-            'More >',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: Colors.black,
+          InkWell(
+            onTap: onTap, // JUST PUT THIS HERE
+            child: const Padding(
+              padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+              child: Text(
+                'More >',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black,
+                ),
+              ),
             ),
           ),
         ],
       ),
     );
   }
-
-  
 }

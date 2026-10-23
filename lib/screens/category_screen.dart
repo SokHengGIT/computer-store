@@ -242,10 +242,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black, size: 22),
           onPressed: () {
-            if (Navigator.canPop(context)) {
+            final menuService = context.read<MenuService>();
+            if (menuService.customPage != null) {
+              menuService.goBack();
+            } else if (Navigator.canPop(context)) {
               Navigator.pop(context);
             } else {
-              context.read<MenuService>().goBack();
+              menuService.goBack();
             }
           },
         ),

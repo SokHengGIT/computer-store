@@ -1,11 +1,10 @@
-import 'package:computer_store_app/screens/cart_screen.dart';
-import 'package:computer_store_app/screens/my_orders_screen.dart';
-import 'package:computer_store_app/screens/order_details_screen.dart';
 import 'package:flutter/material.dart';
 import '../screens/inbox_screen.dart';
 import '../screens/offers_screen.dart';
 import '../screens/settings_screen.dart';
 import '../screens/wishlist_screen.dart';
+import 'package:provider/provider.dart';
+import '../services/menu_service.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -124,12 +123,9 @@ class ProfileScreen extends StatelessWidget {
                   Colors.black, 
                   'My Orders', 
                   'Track your purchase',
-                  onTap: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const MyOrdersScreen())
-                    );
-                  }
+                  onTap: () {
+                    context.read<MenuService>().onPageChanged(2);
+                  },
                 ),
                 _buildListTile(
                   Icons.favorite_border, 

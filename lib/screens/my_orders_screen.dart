@@ -4,6 +4,7 @@ import '../providers/cart_provider.dart';
 import '../services/cart_service.dart' hide CartItem;
 import 'checkout_step_1_screen.dart';
 import 'order_status_screen.dart';
+import '../services/menu_service.dart';
 
 class MyOrdersScreen extends StatefulWidget {
   const MyOrdersScreen({super.key});
@@ -41,7 +42,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black, size: 20),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => context.read<MenuService>().goBack(),
         ),
         title: const Text(
           'My Orders',

@@ -53,11 +53,18 @@ class _MenuScreenState extends State<MenuScreen> {
       builder: (context, value, child) {
         final clampedIndex = value.currentPage.clamp(0, 4);
 
-        return Scaffold(
-          // If a custom page exists, show it. Otherwise, show the preserved tabs.
-          body: value.customPage != null 
-              ? value.customPage! 
-              : IndexedStack(
+        return PopScope(
+          canPop: value.customPage == null && value.currentPage == 0,
+          onPopInvokedWithResult: (didPop, result) {
+            if (didPop) return;
+            value.goBack();
+          },
+          child: Scaffold(
+            // Layer the screens so the IndexedStack NEVER gets destroyed!
+            body: Stack(
+              children: [
+                // 1. The preserved main tabs (Always alive in memory)
+                IndexedStack(
                   index: clampedIndex,
                   children: const [
                     HomeScreen(), 
@@ -67,62 +74,37 @@ class _MenuScreenState extends State<MenuScreen> {
                     ProfileScreen(), 
                   ],
                 ),
-          // Magically hide the bottom nav if we are looking at a category screen
-          bottomNavigationBar: value.customPage != null 
-              ? null 
-              : BottomNavigationBar(
-                  type: BottomNavigationBarType.fixed,
-                  selectedItemColor: Colors.black,
-                  unselectedItemColor: Colors.grey,
-                  showSelectedLabels: true,
-                  showUnselectedLabels: true,
-                  selectedFontSize: 12,
-                  unselectedFontSize: 12,
-                  currentIndex: clampedIndex,
-                  onTap: context.read<MenuService>().onPageChanged,
-                  items: _navItems.map((item) {
-                    return BottomNavigationBarItem(
-                      icon: Icon(item.icon),
-                      activeIcon: Icon(item.activeIcon),
-                      label: item.label,
-                    );
-                  }).toList(),
-                ),
+                
+                // 2. The custom page layered ON TOP if it exists
+                if (value.customPage != null) 
+                  value.customPage!,
+              ],
+            ),
+            
+            // Magically hide the bottom nav if we are looking at a category/more screen
+            bottomNavigationBar: value.customPage != null 
+                ? null 
+                : BottomNavigationBar(
+                    type: BottomNavigationBarType.fixed,
+                    selectedItemColor: Colors.black,
+                    unselectedItemColor: Colors.grey,
+                    showSelectedLabels: true,
+                    showUnselectedLabels: true,
+                    selectedFontSize: 12,
+                    unselectedFontSize: 12,
+                    currentIndex: clampedIndex,
+                    onTap: context.read<MenuService>().onPageChanged,
+                    items: _navItems.map((item) {
+                      return BottomNavigationBarItem(
+                        icon: Icon(item.icon),
+                        activeIcon: Icon(item.activeIcon),
+                        label: item.label,
+                      );
+                    }).toList(),
+                  ),
+          ),
         );
       },
-    );
-  }
-}
-
-class _PlaceholderTab extends StatelessWidget {
-  final String title;
-  final IconData icon;
-
-  const _PlaceholderTab({required this.title, required this.icon});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, size: 64, color: Colors.grey.shade400),
-            const SizedBox(height: 12),
-            Text(
-              '$title coming soon!',
-              style: TextStyle(fontSize: 16, color: Colors.grey.shade600, fontWeight: FontWeight.w500),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../services/menu_service.dart';
 import '../screens/category_screen.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -26,7 +28,7 @@ class AppDrawer extends StatelessWidget {
           _buildDrawerItem(
             context,
             title: 'Gaming PCs',
-            bannerImage: 'assets/images/gaming_pc_banner.jpg', // Replace with your asset path
+            bannerImage: 'assets/images/gaming_pc_banner.jpg',
           ),
           _buildDrawerItem(
             context,
@@ -50,14 +52,11 @@ class AppDrawer extends StatelessWidget {
       onTap: () {
         // Pop the drawer closed first
         Navigator.pop(context);
-        // Push to the dynamic category screen
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => CategoryScreen(
-              categoryTitle: title,
-              bannerImagePath: bannerImage,
-            ),
+        // Push category screen into MenuService memory
+        context.read<MenuService>().pushCustomPage(
+          CategoryScreen(
+            categoryTitle: title,
+            bannerImagePath: bannerImage,
           ),
         );
       },

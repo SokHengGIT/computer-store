@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import '../models/product.dart';
 import '../widgets/sort_settings_sheet.dart';
 import '../widgets/filter_settings_sheet.dart';
-import 'cart_screen.dart';
 import 'product_detail_screen.dart';
 import 'package:provider/provider.dart';
 import '../providers/wishlist_provider.dart';
+import '../services/menu_service.dart';
 
 class ProductListingScreen extends StatefulWidget {
   const ProductListingScreen({super.key});
@@ -174,7 +174,7 @@ class _ProductListingScreenState extends State<ProductListingScreen> {
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.black, size: 20),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => context.read<MenuService>().goBack(),
         ),
         title: const Text(
           'Product Listing',
@@ -185,10 +185,7 @@ class _ProductListingScreenState extends State<ProductListingScreen> {
           IconButton(
             icon: const Icon(Icons.shopping_cart_outlined, color: Colors.black),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const CartScreen()),
-              );
+              context.read<MenuService>().onPageChanged(3);
             },
           ),
         ],
@@ -467,7 +464,7 @@ class _ProductListingScreenState extends State<ProductListingScreen> {
                             context.read<WishlistProvider>().toggleWishlist(productMap);
                           },
                         );
-                      }
+                      },
                     ),
                   )
                 ],
