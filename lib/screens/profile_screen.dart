@@ -1,8 +1,11 @@
 import 'package:computer_store_app/screens/cart_screen.dart';
+import 'package:computer_store_app/screens/my_orders_screen.dart';
+import 'package:computer_store_app/screens/order_details_screen.dart';
 import 'package:flutter/material.dart';
 import '../screens/inbox_screen.dart';
 import '../screens/offers_screen.dart';
 import '../screens/settings_screen.dart';
+import '../screens/wishlist_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -124,15 +127,21 @@ class ProfileScreen extends StatelessWidget {
                   onTap: (){
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const CartScreen())
+                      MaterialPageRoute(builder: (context) => const MyOrdersScreen())
                     );
                   }
                 ),
                 _buildListTile(
                   Icons.favorite_border, 
                   Colors.black, 
-                  'Wishtlist', // Restored Heng's exact spelling
-                  'Your saved products'
+                  'Wishtlist', // Kept your spelling
+                  'Your saved products',
+                  onTap: () { // ADD THIS TAP HANDLER
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const WishlistScreen()),
+                    );
+                  }
                 ),
                 _buildListTile(
                   Icons.settings_outlined, 

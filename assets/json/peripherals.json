@@ -1,0 +1,60 @@
+[
+  {
+    "id": "PER-001",
+    "name": "Logitech G PRO X SUPERLIGHT 2",
+    "subtitle": "Wireless Gaming Mouse",
+    "category": "Peripherals",
+    "price": 159.99,
+    "imageUrl": "assets/images/banner.png",
+    "rating": 4.9,
+    "reviewsCount": 312,
+    "stock": 30,
+    "sku": "LOGI-GPX-SL2",
+    "specs": {
+      "sensor": "HERO 2 32,000 DPI",
+      "weight": "60 grams",
+      "battery": "Up to 95 Hours",
+      "connectivity": "LIGHTSPEED Wireless / USB-C"
+    },
+    "description": "Pro-grade wireless gaming mouse trusted by world champions, featuring LIGHTFORCE hybrid optical-mechanical switches."
+  },
+  {
+    "id": "PER-002",
+    "name": "Razer BlackWidow V4 Pro",
+    "subtitle": "Mechanical Gaming Keyboard",
+    "category": "Peripherals",
+    "price": 229.99,
+    "imageUrl": "assets/images/banner.png",
+    "rating": 4.8,
+    "reviewsCount": 140,
+    "stock": 16,
+    "sku": "RZ03-0468",
+    "specs": {
+      "switches": "Razer Green Clicky Mechanical",
+      "polling_rate": "True 8,000 Hz",
+      "wrist_rest": "Plush Leatherette with Underglow",
+      "controls": "Razer Command Dial & 8 Macro Keys"
+    },
+    "description": "Full-blown battlestation mechanical keyboard featuring customizable multi-function dial, dedicated macro keys, and per-key Chroma RGB."
+  },
+  {
+    "id": "PER-003",
+    "name": "SteelSeries Apex Pro TKL (2023)",
+    "subtitle": "Adjustable HyperMagnetic Keyboard",
+    "category": "Peripherals",
+    "price": 189.99,
+    "imageUrl": "assets/images/banner.png",
+    "rating": 4.7,
+    "reviewsCount": 98,
+    "stock": 22,
+    "sku": "SS-APX-PRO-TKL",
+    "specs": {
+      "switches": "OmniPoint 2.0 Adjustable HyperMagnetic",
+      "actuation": "0.1mm to 4.0mm actuation distance",
+      "display": "OLED Smart Display",
+      "form_factor": "Tenkeyless (TKL)"
+    },
+    "description": "The world's fastest keyboard with OmniPoint 2.0 switches, Rapid Trigger, and custom per-key actuation depth."
+  }
+]
+

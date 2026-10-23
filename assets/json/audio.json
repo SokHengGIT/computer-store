@@ -1,0 +1,60 @@
+[
+  {
+    "id": "AUD-001",
+    "name": "Sony WH-1000XM5 Wireless Headphones",
+    "subtitle": "Industry Leading Noise Canceling",
+    "category": "Audio",
+    "price": 399.99,
+    "imageUrl": "assets/images/banner2.png",
+    "rating": 4.9,
+    "reviewsCount": 420,
+    "stock": 25,
+    "sku": "SONY-WH1000XM5",
+    "specs": {
+      "noise_canceling": "Auto NC Optimizer with 8 Microphones",
+      "battery": "Up to 30 Hours with Quick Charging",
+      "audio_codec": "LDAC, Hi-Res Audio Wireless",
+      "connectivity": "Bluetooth 5.2, Multipoint"
+    },
+    "description": "Premium over-ear noise-canceling headphones powered by two processors and eight microphones for unprecedented sound isolation."
+  },
+  {
+    "id": "AUD-002",
+    "name": "SteelSeries Arctis Nova Pro Wireless",
+    "subtitle": "Multi-System Gaming Headset",
+    "category": "Audio",
+    "price": 349.99,
+    "imageUrl": "assets/images/banner2.png",
+    "rating": 4.8,
+    "reviewsCount": 178,
+    "stock": 11,
+    "sku": "SS-NOVA-PRO-WL",
+    "specs": {
+      "drivers": "Premium High Fidelity Drivers with Sonar EQ",
+      "battery": "Infinity Power System (Dual Hot-Swap Batteries)",
+      "anc": "Active Noise Cancellation with Transparency",
+      "compatibility": "PC, Mac, PlayStation, Switch"
+    },
+    "description": "Almighty audio system combining premium hi-fi audio hardware with the power of Sonar Audio Software Suite."
+  },
+  {
+    "id": "AUD-003",
+    "name": "HyperX Cloud III Wireless Headset",
+    "subtitle": "Up to 120 Hours Battery",
+    "category": "Audio",
+    "price": 149.99,
+    "imageUrl": "assets/images/banner2.png",
+    "rating": 4.7,
+    "reviewsCount": 215,
+    "stock": 35,
+    "sku": "HYPERX-CL3-WL",
+    "specs": {
+      "battery": "Up to 120 Hours on a Single Charge",
+      "drivers": "53mm Angled Drivers",
+      "microphone": "10mm Crystal-Clear Detachable Mic",
+      "audio": "DTS Headphone:X Spatial Audio"
+    },
+    "description": "Legendary comfort meets colossal battery life, offering precision audio reproduction and plush memory foam ear cushions."
+  }
+]
+

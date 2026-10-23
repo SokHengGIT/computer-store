@@ -6,6 +6,8 @@ import '../widgets/sort_settings_sheet.dart';
 import '../widgets/filter_settings_sheet.dart';
 import 'cart_screen.dart';
 import 'product_detail_screen.dart';
+import 'package:provider/provider.dart';
+import '../providers/wishlist_provider.dart';
 
 class ProductListingScreen extends StatefulWidget {
   const ProductListingScreen({super.key});
@@ -436,16 +438,36 @@ class _ProductListingScreenState extends State<ProductListingScreen> {
                     ),
                   ),
                   Positioned(
-                    top: 8,
-                    right: 8,
-                    child: Container(
-                      padding: const EdgeInsets.all(4),
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4)],
-                      ),
-                      child: const Icon(Icons.favorite_border, size: 16, color: Colors.black),
+                    top: 0,
+                    right: 0,
+                    child: Builder(
+                      builder: (context) {
+                        // Package the model into the Map structure your Wishlist expects
+                        final productMap = {
+                          'id': product.id,
+                          'name': product.name,
+                          'description': product.description,
+                          'imageUrl': product.imageUrl,
+                          'image': product.imageUrl,
+                          'price': product.price,
+                          'rating': product.rating,
+                          'specs': specDisplay,
+                          'category': product.category,
+                        };
+
+                        final isSaved = context.watch<WishlistProvider>().isInWishlist(productMap);
+
+                        return IconButton(
+                          icon: Icon(
+                            isSaved ? Icons.favorite : Icons.favorite_border,
+                            color: isSaved ? const Color(0xFFD32F2F) : Colors.grey.shade400,
+                          ),
+                          onPressed: () {
+                            // Toggles the item in global memory and instantly updates the UI
+                            context.read<WishlistProvider>().toggleWishlist(productMap);
+                          },
+                        );
+                      }
                     ),
                   )
                 ],

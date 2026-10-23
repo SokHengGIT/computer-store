@@ -1,0 +1,64 @@
+[
+  {
+    "id": "GPC-001",
+    "name": "MSI Katana 15",
+    "subtitle": "Core i7 13th Gen",
+    "category": "Gaming PCs",
+    "price": 1199,
+    "imageUrl": "assets/images/new_arrivals/MSIKATANA15.png",
+    "rating": 5.0,
+    "reviewsCount": 84,
+    "stock": 12,
+    "sku": "MSI-KAT-15",
+    "specs": {
+      "cpu": "Intel Core i7 13th Gen",
+      "gpu": "NVIDIA RTX 4060 8GB",
+      "ram": "16GB DDR5",
+      "storage": "1TB NVMe SSD",
+      "display": "15.6-inch FHD 144Hz"
+    },
+    "description": "High-performance gaming laptop with GeForce RTX 4060 graphics, 13th Gen Intel processor, and dedicated Cooler Boost 5 cooling."
+  },
+  {
+    "id": "GPC-002",
+    "name": "ASUS ROG Strix G18",
+    "subtitle": "Core i7 14th Gen",
+    "category": "Gaming PCs",
+    "price": 1699.99,
+    "imageUrl": "assets/images/laptops/rog_strix_g18.png",
+    "rating": 5.0,
+    "reviewsCount": 142,
+    "stock": 8,
+    "sku": "ROG-STR-G18",
+    "specs": {
+      "cpu": "Intel Core i7 14th Gen",
+      "gpu": "NVIDIA RTX 5060",
+      "ram": "16GB DDR5",
+      "storage": "1TB NVMe SSD",
+      "display": "18-inch QHD+ 240Hz"
+    },
+    "description": "18-inch competitive gaming powerhouse featuring high-refresh Nebula Display and next-generation graphics."
+  },
+  {
+    "id": "GPC-003",
+    "name": "Custom Mid-Tower Rig",
+    "subtitle": "Core i5 14400F",
+    "category": "Gaming PCs",
+    "price": 849.00,
+    "imageUrl": "assets/images/laptops/rog_strix_g18.png",
+    "rating": 4.5,
+    "reviewsCount": 67,
+    "stock": 15,
+    "sku": "DSK-MID-001",
+    "specs": {
+      "cpu": "Intel Core i5-14400F",
+      "motherboard": "MSI B760",
+      "gpu": "GeForce RTX 4060",
+      "ram": "16GB DDR5",
+      "storage": "512GB M.2 SSD",
+      "power_supply": "Antec Meta 550W"
+    },
+    "description": "Optimized for 1080p and 1440p gaming and productivity with airflow-focused case design and customizable RGB."
+  }
+]
+

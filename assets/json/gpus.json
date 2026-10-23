@@ -1,0 +1,60 @@
+[
+  {
+    "id": "GPU-001",
+    "name": "ROG Strix GeForce RTX 4090 24GB OC",
+    "subtitle": "24GB GDDR6X",
+    "category": "GPUs",
+    "price": 1999.99,
+    "imageUrl": "assets/images/banner2.png",
+    "rating": 5.0,
+    "reviewsCount": 210,
+    "stock": 5,
+    "sku": "ROG-4090-24G",
+    "specs": {
+      "gpu": "NVIDIA GeForce RTX 4090",
+      "ram": "24GB GDDR6X",
+      "display": "HDMI 2.1a, 3x DisplayPort 1.4a",
+      "power_supply": "1000W Recommended"
+    },
+    "description": "The ultimate GeForce GPU delivering an enormous leap in performance, efficiency, and AI-powered graphics with DLSS 3.5."
+  },
+  {
+    "id": "GPU-002",
+    "name": "MSI GeForce RTX 4070 Ti SUPER Ventus 3X",
+    "subtitle": "16GB GDDR6X",
+    "category": "GPUs",
+    "price": 799.99,
+    "imageUrl": "assets/images/banner2.png",
+    "rating": 4.8,
+    "reviewsCount": 95,
+    "stock": 14,
+    "sku": "MSI-4070TIS-16G",
+    "specs": {
+      "gpu": "NVIDIA GeForce RTX 4070 Ti SUPER",
+      "ram": "16GB GDDR6X",
+      "display": "HDMI 2.1a, 3x DP 1.4a",
+      "power_supply": "750W Recommended"
+    },
+    "description": "Supercharged performance for high-framerate 1440p and 4K gaming, equipped with TORX Fan 4.0 cooling system."
+  },
+  {
+    "id": "GPU-003",
+    "name": "Gigabyte GeForce RTX 4060 Eagle OC",
+    "subtitle": "8GB GDDR6",
+    "category": "GPUs",
+    "price": 329.99,
+    "imageUrl": "assets/images/banner2.png",
+    "rating": 4.6,
+    "reviewsCount": 118,
+    "stock": 20,
+    "sku": "GV-N4060EAGLE",
+    "specs": {
+      "gpu": "NVIDIA GeForce RTX 4060",
+      "ram": "8GB GDDR6",
+      "display": "2x HDMI 2.1a, 2x DP 1.4a",
+      "power_supply": "450W Recommended"
+    },
+    "description": "Windforce 3X cooling system with alternate spinning fans and screen cooling for ultra-efficient heat dissipation."
+  }
+]
+

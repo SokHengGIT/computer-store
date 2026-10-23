@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 // Services & Providers
 import 'package:computer_store_app/services/menu_service.dart';
 import 'providers/cart_provider.dart';
+import '../providers/wishlist_provider.dart';
 
 // Screens
 import 'screens/splash_screen.dart';
@@ -21,6 +22,7 @@ class ComputerStoreApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => MenuService()),
         ChangeNotifierProvider(create: (context) => CartProvider()),
+        ChangeNotifierProvider(create: (_) => WishlistProvider()),
       ],
       child: MaterialApp(
         title: 'Computer Store',

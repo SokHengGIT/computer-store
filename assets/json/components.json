@@ -1,0 +1,79 @@
+[
+  {
+    "id": "CMP-001",
+    "name": "Intel Core i9-14900K Processor",
+    "subtitle": "24 Cores / 32 Threads",
+    "category": "Components",
+    "price": 549.99,
+    "imageUrl": "assets/images/banner3.png",
+    "rating": 4.9,
+    "reviewsCount": 164,
+    "stock": 10,
+    "sku": "INTEL-14900K",
+    "specs": {
+      "cpu": "Intel Core i9-14900K",
+      "clock_speed": "Up to 6.0 GHz Turbo",
+      "socket": "LGA 1700",
+      "cache": "36MB Intel Smart Cache"
+    },
+    "description": "Desktop processor featuring 24 cores (8 Performance-cores and 16 Efficient-cores) engineered for enthusiast gaming and heavy multi-tasking."
+  },
+  {
+    "id": "CMP-002",
+    "name": "AMD Ryzen 7 7800X3D Processor",
+    "subtitle": "8 Cores / 16 Threads",
+    "category": "Components",
+    "price": 449.00,
+    "imageUrl": "assets/images/banner3.png",
+    "rating": 5.0,
+    "reviewsCount": 240,
+    "stock": 7,
+    "sku": "AMD-7800X3D",
+    "specs": {
+      "cpu": "AMD Ryzen 7 7800X3D",
+      "clock_speed": "Up to 5.0 GHz Max Boost",
+      "socket": "AM5",
+      "cache": "96MB AMD 3D V-Cache"
+    },
+    "description": "The gaming champion featuring AMD 3D V-Cache technology for unmatched gaming performance and class-leading power efficiency."
+  },
+  {
+    "id": "CMP-003",
+    "name": "Samsung 990 PRO 2TB NVMe SSD",
+    "subtitle": "PCIe 4.0 M.2 2280",
+    "category": "Components",
+    "price": 179.99,
+    "imageUrl": "assets/images/banner3.png",
+    "rating": 4.9,
+    "reviewsCount": 182,
+    "stock": 25,
+    "sku": "MZ-V9P2T0B",
+    "specs": {
+      "storage": "2TB NVMe SSD",
+      "read_speed": "Up to 7,450 MB/s",
+      "write_speed": "Up to 6,900 MB/s",
+      "interface": "PCIe Gen 4.0 x4, NVMe 2.0"
+    },
+    "description": "Ultimate internal solid-state drive with smart thermal control designed for tech enthusiasts, hardcore gamers, and heavy-workload professionals."
+  },
+  {
+    "id": "CMP-004",
+    "name": "Corsair Vengeance RGB 32GB DDR5",
+    "subtitle": "2x16GB DDR5 6000MHz",
+    "category": "Components",
+    "price": 119.99,
+    "imageUrl": "assets/images/banner3.png",
+    "rating": 4.7,
+    "reviewsCount": 77,
+    "stock": 18,
+    "sku": "CMH32GX5M2B",
+    "specs": {
+      "ram": "32GB (2 x 16GB) DDR5",
+      "speed": "6000 MHz",
+      "latency": "CL30",
+      "rgb": "Ten-Zone RGB Lighting"
+    },
+    "description": "Delivers DDR5 performance and frequencies tuned for Intel and AMD motherboards with vibrant ten-zone RGB illumination."
+  }
+]
+

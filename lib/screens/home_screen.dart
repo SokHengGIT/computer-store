@@ -8,8 +8,9 @@ import 'package:provider/provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import '../models/product.dart'; 
 import '../widgets/product_card.dart';
-import '../screens/about_us_screen.dart';
-import '../screens/pc_finder_screen.dart';
+import '../widgets/main_drawer.dart';
+import '../screens/category_screen.dart';
+
 
 
 // 1. Define a quick model for your Navigation items (Matching Teacher's Structure)
@@ -130,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
     context.read<MenuService>().setPreviousPage(0);
     return Scaffold(
       backgroundColor: Colors.white,
-      drawer: _buildSidebarDrawer(),
+      drawer: const MainDrawer(),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -282,17 +283,18 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const SizedBox(height: 12),
 
-              // Static Categories Row
+              // Interactive Categories Row
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _buildCategoryIcon(Icons.laptop_chromebook, 'Computer'),
-                    _buildCategoryIcon(Icons.phone_android, 'Phone'),
-                    _buildCategoryIcon(Icons.keyboard, 'Keyboard'),
-                    _buildCategoryIcon(Icons.print, 'Printer'),
-                    _buildCategoryIcon(Icons.headphones, 'Headphones'),
+                    // Pass the Title and the Banner Image it should load
+                    _buildCategoryIcon(Icons.laptop_chromebook, 'Gaming PCs', 'assets/images/banner.png'),
+                    _buildCategoryIcon(Icons.developer_board, 'GPUs', 'assets/images/banner2.png'),
+                    _buildCategoryIcon(Icons.memory, 'Components', 'assets/images/banner3.png'),
+                    _buildCategoryIcon(Icons.print, 'Printer', 'assets/images/banner.png'),
+                    _buildCategoryIcon(Icons.headphones, 'Audio', 'assets/images/banner2.png'),
                   ],
                 ),
               ),
@@ -369,25 +371,37 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // Helper Method
 
-  Widget _buildCategoryIcon(IconData icon, String label) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          width: 70,
-          height: 50,
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey.shade300),
-            borderRadius: BorderRadius.circular(12),
+  Widget _buildCategoryIcon(IconData icon, String label, String bannerPath) {
+    return InkWell(
+      onTap: () {
+        // Replaces Navigator.push to keep everything inside the MenuService memory
+        context.read<MenuService>().pushCustomPage(
+          CategoryScreen(
+            categoryTitle: label,
+            bannerImagePath: bannerPath,
           ),
-          child: Icon(icon, color: Colors.black, size: 28),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          label,
-          style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
-        ),
-      ],
+        );
+      },
+      borderRadius: BorderRadius.circular(12),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: 70,
+            height: 50,
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey.shade300),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(icon, color: Colors.black, size: 28),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            label,
+            style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
+          ),
+        ],
+      ),
     );
   }
 
@@ -480,84 +494,5 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // Sidebar Drawer
-  Widget _buildSidebarDrawer(){
-    return Drawer(
-      backgroundColor: const Color(0xFFF7F7F7),
-      child:  Column(
-        children: [
-          Container(
-            width: double.infinity,
-            color: Colors.black87,
-            padding: const EdgeInsets.only(top: 70, bottom:30),
-            child: const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircleAvatar(
-                  backgroundImage: AssetImage('assets/images/users/hengrithik.png'),
-                  radius: 40,
-                  backgroundColor: Colors.grey,
-                ),
-                SizedBox(height: 12),
-                Text(
-                  'USER',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
-                ),
-                Text(
-                  'user@gmail.com',
-                  style: TextStyle(fontSize: 12, color: Colors.white),
-                ),
-              ],
-            ),
-          ),
-
-          Expanded(
-            child: ListView(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              children: [
-                _buildDrawerItem(Icons.home_outlined, 'Home'),
-                _buildDrawerItem(Icons.person_outline, 'Profile'),
-                _buildDrawerItem(
-  Icons.manage_search_outlined, 
-  'PC Finder Assistant', 
-  onTap: () {
-    Navigator.pop(context); 
-    Navigator.push(
-      context, 
-      MaterialPageRoute(builder: (context) => const PcFinderScreen()),
-    );
-  }
-),
-                _buildDrawerItem(Icons.location_on_outlined, 'Address'),
-                _buildDrawerItem(Icons.manage_search_outlined, 'Track service'),
-                _buildDrawerItem(Icons.description_outlined, 'Terms and Conditions'),
-                _buildDrawerItem(
-                  Icons.info_outline,
-                  'About Us',
-                  onTap: () {
-                    Navigator.pop(context); // Closes the sidebar smoothly
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const AboutUsScreen()),
-                    );
-                  },
-                ),
-                _buildDrawerItem(Icons.logout, 'Log out'),
-              ],
-          ))
-        ],
-      )
-    );
-  }
-
-  Widget _buildDrawerItem(IconData icon, String title, {VoidCallback? onTap}){
-    return ListTile(
-      leading: Icon(icon, color: Colors.black87),
-      title: Text(
-        title,
-        style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black87),
-        ),
-        onTap: onTap ?? () {},
-      );
-  }
+  
 }

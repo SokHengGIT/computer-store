@@ -54,34 +54,40 @@ class _MenuScreenState extends State<MenuScreen> {
         final clampedIndex = value.currentPage.clamp(0, 4);
 
         return Scaffold(
-          body: IndexedStack(
-            index: clampedIndex,
-            children: const [
-              HomeScreen(), // 0: Home
-              ProductListingScreen(), // 1: Goods
-              MyOrdersScreen(), // 2: Order
-              CartScreen(), // 3: Basket
-              ProfileScreen(), // 4: Account
-            ],
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            selectedItemColor: Colors.black,
-            unselectedItemColor: Colors.grey,
-            showSelectedLabels: true,
-            showUnselectedLabels: true,
-            selectedFontSize: 12,
-            unselectedFontSize: 12,
-            currentIndex: clampedIndex,
-            onTap: context.read<MenuService>().onPageChanged,
-            items: _navItems.map((item) {
-              return BottomNavigationBarItem(
-                icon: Icon(item.icon),
-                activeIcon: Icon(item.activeIcon),
-                label: item.label,
-              );
-            }).toList(),
-          ),
+          // If a custom page exists, show it. Otherwise, show the preserved tabs.
+          body: value.customPage != null 
+              ? value.customPage! 
+              : IndexedStack(
+                  index: clampedIndex,
+                  children: const [
+                    HomeScreen(), 
+                    ProductListingScreen(), 
+                    MyOrdersScreen(), 
+                    CartScreen(), 
+                    ProfileScreen(), 
+                  ],
+                ),
+          // Magically hide the bottom nav if we are looking at a category screen
+          bottomNavigationBar: value.customPage != null 
+              ? null 
+              : BottomNavigationBar(
+                  type: BottomNavigationBarType.fixed,
+                  selectedItemColor: Colors.black,
+                  unselectedItemColor: Colors.grey,
+                  showSelectedLabels: true,
+                  showUnselectedLabels: true,
+                  selectedFontSize: 12,
+                  unselectedFontSize: 12,
+                  currentIndex: clampedIndex,
+                  onTap: context.read<MenuService>().onPageChanged,
+                  items: _navItems.map((item) {
+                    return BottomNavigationBarItem(
+                      icon: Icon(item.icon),
+                      activeIcon: Icon(item.activeIcon),
+                      label: item.label,
+                    );
+                  }).toList(),
+                ),
         );
       },
     );

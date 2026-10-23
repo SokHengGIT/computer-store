@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
+import '../providers/wishlist_provider.dart';
+import 'package:provider/provider.dart';
 import '../services/menu_service.dart';
 import '../providers/cart_provider.dart';
 import '../services/cart_service.dart' hide CartItem;

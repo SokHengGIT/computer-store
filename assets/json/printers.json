@@ -1,0 +1,60 @@
+[
+  {
+    "id": "PRN-001",
+    "name": "Brother HL-T4000DW Refill Tank",
+    "subtitle": "Refill Tank Wireless A3",
+    "category": "Printer",
+    "price": 499.00,
+    "imageUrl": "assets/images/new_arrivals/HL-T4000DW-R 1.png",
+    "rating": 4.8,
+    "reviewsCount": 62,
+    "stock": 9,
+    "sku": "BRO-HL-T4000",
+    "specs": {
+      "print_type": "Refill Tank Wireless Color Inkjet",
+      "paper_size": "Up to A3 (11 x 17 in)",
+      "connectivity": "Wi-Fi, Wi-Fi Direct, USB 2.0, LAN",
+      "duplex": "Automatic 2-Sided Printing"
+    },
+    "description": "High-volume color inkjet printer with ultra low-cost ink bottle refills and automatic double-sided printing up to A3."
+  },
+  {
+    "id": "PRN-002",
+    "name": "Canon imageCLASS MF445dw",
+    "subtitle": "All-in-One Monochrome Laser",
+    "category": "Printer",
+    "price": 349.99,
+    "imageUrl": "assets/images/new_arrivals/HL-T4000DW-R 1.png",
+    "rating": 4.6,
+    "reviewsCount": 45,
+    "stock": 14,
+    "sku": "CAN-MF445DW",
+    "specs": {
+      "print_type": "Monochrome Laser All-in-One",
+      "print_speed": "Up to 40 ppm (Letter)",
+      "capacity": "350-Sheet Standard Paper Capacity",
+      "display": "5-inch Color Touchscreen"
+    },
+    "description": "Designed for small and medium-size businesses, balancing speedy performance, minimal maintenance, and mobile device printing."
+  },
+  {
+    "id": "PRN-003",
+    "name": "Epson EcoTank ET-2850",
+    "subtitle": "Cartridge-Free Supertank",
+    "category": "Printer",
+    "price": 279.99,
+    "imageUrl": "assets/images/new_arrivals/HL-T4000DW-R 1.png",
+    "rating": 4.7,
+    "reviewsCount": 89,
+    "stock": 18,
+    "sku": "EPS-ET-2850",
+    "specs": {
+      "print_type": "Supertank Color All-in-One",
+      "ink_savings": "Up to 90% with replacement bottles",
+      "connectivity": "Wi-Fi, Epson Smart Panel App",
+      "features": "Auto 2-Sided Printing, Scanner, Copier"
+    },
+    "description": "Cartridge-free supertank printer with high-capacity ink tanks and Micro Piezo Heat-Free technology for crisp everyday prints."
+  }
+]
+
