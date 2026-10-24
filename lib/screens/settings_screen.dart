@@ -8,6 +8,9 @@ import 'package:flutter/material.dart';
 import '../screens/personal_information_screen.dart';
 import '../screens/change_password_screen.dart';
 import '../screens/language_screen.dart';
+import 'package:provider/provider.dart';
+import '../screens/login_screen.dart';
+import '../services/menu_service.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -135,7 +138,12 @@ class SettingsScreen extends StatelessWidget {
                 width: double.infinity,
                 child: OutlinedButton(
                   onPressed: () {
-                    Navigator.of(context).popUntil((route) => route.isFirst);
+                    context.read<MenuService>().onPageChanged(0);
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => const LoginScreen()),
+                      (route) => false,
+                    );
                   },
                   style: OutlinedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 16),

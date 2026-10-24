@@ -1,3 +1,4 @@
+import 'package:computer_store_app/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -127,8 +128,12 @@ class MainDrawer extends StatelessWidget {
                   Icons.logout, 
                   'Log out',
                   onTap: () {
-                    Navigator.pop(context);
-                    // Add logout navigation logic here when ready
+                    context.read<MenuService>().onPageChanged(0);
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => const LoginScreen()),
+                      (route) => false,
+                    );
                   }
                 ),
               ],

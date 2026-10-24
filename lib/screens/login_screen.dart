@@ -1,3 +1,4 @@
+import 'package:computer_store_app/screens/forgot_password_screen.dart';
 import 'package:flutter/material.dart';
 import 'menu_screen.dart'; // To route into the app after successful login
 import 'welcome_screen.dart';
@@ -66,7 +67,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 alignment: Alignment.centerRight,
                 child: GestureDetector(
                   onTap: () {
-                    // TODO: Forgot password flow
+                    Navigator.push(
+                      context, 
+                      MaterialPageRoute(builder: (context) => ForgotPasswordScreen())
+                    );
                   },
                   child: const Text(
                     'Forgot Password',
