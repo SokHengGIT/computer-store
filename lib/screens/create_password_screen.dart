@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'login_screen.dart'; // To route back to login after confirmation
+import 'login_screen.dart';
 
 class CreatePasswordScreen extends StatefulWidget {
   const CreatePasswordScreen({super.key});
@@ -9,7 +9,6 @@ class CreatePasswordScreen extends StatefulWidget {
 }
 
 class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
-  // State variables to toggle password visibility
   bool _isPasswordVisible = false;
   bool _isConfirmPasswordVisible = false;
 
@@ -18,7 +17,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.black, // Dark app bar[cite: 13]
+        backgroundColor: Colors.black, 
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.white, size: 20),
@@ -36,19 +35,19 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Header Texts[cite: 13]
+              
               const Text(
                 'Create Password',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
               ),
               const SizedBox(height: 8),
               const Text(
-                'Please set up your a new password here', // Exact typo from design[cite: 13]
+                'Please set up your a new password here', 
                 style: TextStyle(fontSize: 15, color: Colors.grey, height: 1.4),
               ),
               const SizedBox(height: 40),
 
-              // Password Input[cite: 13]
+              
               _buildShadowedTextField(
                 hintText: 'enter your password',
                 isObscured: !_isPasswordVisible,
@@ -58,9 +57,9 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
               ),
               const SizedBox(height: 20),
               
-              // Confirm Password Input[cite: 13]
+              
               _buildShadowedTextField(
-                hintText: 'enter your comfirm password', // Exact typo from design[cite: 13]
+                hintText: 'enter your comfirm password', 
                 isObscured: !_isConfirmPasswordVisible,
                 onVisibilityToggle: () {
                   setState(() => _isConfirmPasswordVisible = !_isConfirmPasswordVisible);
@@ -68,19 +67,16 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
               ),
               const SizedBox(height: 40),
 
-              // Confirm Button[cite: 13]
+              
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Password successfully reset! Route user back to Login.
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(builder: (context) => const LoginScreen()),
                       (Route<dynamic> route) => false,
                     );
-                    
-                    // Optional: Show a quick success message
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('Password updated successfully!'),
@@ -90,7 +86,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black, // Black button[cite: 13]
+                    backgroundColor: Colors.black, 
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -109,7 +105,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
     );
   }
 
-  // Reused helper widget for the elevated input fields with the eye icon[cite: 13]
+  
   Widget _buildShadowedTextField({
     required String hintText, 
     required bool isObscured,

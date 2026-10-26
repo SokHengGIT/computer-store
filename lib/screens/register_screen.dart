@@ -9,7 +9,6 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  // State variables for the toggles
   bool _isPasswordVisible = false;
   bool _isConfirmPasswordVisible = false;
   bool _wantsOffers = false;
@@ -19,7 +18,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.black, // Dark app bar
+        backgroundColor: Colors.black,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.white, size: 20),
@@ -85,7 +84,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       setState(() => _wantsOffers = !_wantsOffers);
                     },
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 2.0), // Align circle with first line of text
+                      padding: const EdgeInsets.only(top: 2.0),
                       child: Icon(
                         _wantsOffers ? Icons.check_circle : Icons.circle_outlined,
                         color: Colors.black,
@@ -100,7 +99,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         setState(() => _wantsOffers = !_wantsOffers);
                       },
                       child: const Text(
-                        "i'd like to receive exlusive offer and promotion via\nemail", // Exact wording and typo from design
+                        "i'd like to receive exlusive offer and promotion via\nemail",
                         style: TextStyle(fontSize: 12, color: Colors.black, fontWeight: FontWeight.w500, height: 1.4),
                       ),
                     ),
@@ -114,14 +113,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Navigate to the Mobile Verification step
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => const RegisterMobileScreen()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black, // Black button
+                    backgroundColor: Colors.black,
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -140,7 +138,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  // Modified helper to support the trailing eye icon for passwords
+  // Helper
   Widget _buildShadowedTextField({
     required String hintText, 
     bool isPassword = false,
@@ -167,7 +165,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
           hintStyle: const TextStyle(color: Colors.black87, fontSize: 14, fontWeight: FontWeight.w500),
           border: InputBorder.none,
           contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          // Add the eye icon if it is a password field
           suffixIcon: isPassword 
               ? IconButton(
                   icon: Icon(

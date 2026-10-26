@@ -14,8 +14,6 @@ class SortSettingsSheet extends StatefulWidget {
 
 class _SortSettingsSheetState extends State<SortSettingsSheet> {
   late String _selectedOption;
-
-  // Exact options from the Figma mockup
   final List<String> _sortOptions = [
     'Recommended',
     'Price: Low to High',
@@ -35,7 +33,7 @@ class _SortSettingsSheetState extends State<SortSettingsSheet> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        color: Color(0xFFF7F7F7), // Light grey background of the sheet
+        color: Color(0xFFF7F7F7),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(24),
           topRight: Radius.circular(24),
@@ -43,7 +41,7 @@ class _SortSettingsSheetState extends State<SortSettingsSheet> {
       ),
       padding: const EdgeInsets.only(left: 24, right: 24, top: 12, bottom: 24),
       child: Column(
-        mainAxisSize: MainAxisSize.min, // Shrinks the sheet to fit the content
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Top Drag Handle
@@ -85,11 +83,10 @@ class _SortSettingsSheetState extends State<SortSettingsSheet> {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                // Passes the selected string back to the Product Listing Screen
                 Navigator.pop(context, _selectedOption);
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF141414), // Dark black button
+                backgroundColor: const Color(0xFF141414),
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -106,7 +103,7 @@ class _SortSettingsSheetState extends State<SortSettingsSheet> {
     );
   }
 
-  // Custom helper to build the individual radio rows
+  // Helper: Radio Row
   Widget _buildSortOption(String title) {
     bool isSelected = _selectedOption == title;
 
@@ -120,7 +117,6 @@ class _SortSettingsSheetState extends State<SortSettingsSheet> {
         margin: const EdgeInsets.only(bottom: 4),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         decoration: BoxDecoration(
-          // The mockup shows a white background specifically highlighting the selected item
           color: isSelected ? Colors.white : Colors.transparent, 
           borderRadius: BorderRadius.circular(12),
         ),
@@ -135,7 +131,6 @@ class _SortSettingsSheetState extends State<SortSettingsSheet> {
                 color: Colors.black87,
               ),
             ),
-            // Custom Radio Button matching the shipping toggle we built earlier
             Container(
               width: 22,
               height: 22,

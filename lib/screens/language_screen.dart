@@ -54,7 +54,6 @@ class _LanguageScreenState extends State<LanguageScreen> {
         setState(() {
           _selectedLanguage = language;
         });
-        // Wait a brief moment to show the checkmark before popping
         Future.delayed(const Duration(milliseconds: 300), () {
           if (mounted) Navigator.pop(context);
         });

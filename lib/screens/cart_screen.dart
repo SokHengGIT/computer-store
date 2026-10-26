@@ -36,8 +36,6 @@ class _CartScreenState extends State<CartScreen> {
         ),
         centerTitle: true,
       ),
-      
-      // ListenableBuilder automatically rebuilds this section when the cart changes
       body: ListenableBuilder(
         listenable: _cartService,
         builder: (context, child) {
@@ -104,27 +102,6 @@ class _CartScreenState extends State<CartScreen> {
           );
         },
       ),
-      // // Bottom Navigation (Basket selected)
-      // bottomNavigationBar: BottomNavigationBar(
-      //   type: BottomNavigationBarType.fixed,
-      //   selectedItemColor: Colors.black,
-      //   unselectedItemColor: Colors.grey,
-      //   showSelectedLabels: true,
-      //   showUnselectedLabels: true,
-      //   selectedFontSize: 12,
-      //   unselectedFontSize: 12,
-      //   currentIndex: _currentNavIndex,
-      //   onTap: (index) {
-      //     // Navigation logic goes here
-      //   },
-      //   items: const [
-      //     BottomNavigationBarItem(icon: Icon(Icons.home_outlined), activeIcon: Icon(Icons.home), label: 'Home'),
-      //     BottomNavigationBarItem(icon: Icon(Icons.inventory_2_outlined), activeIcon: Icon(Icons.inventory_2), label: 'Goods'),
-      //     BottomNavigationBarItem(icon: Icon(Icons.receipt_long_outlined), activeIcon: Icon(Icons.receipt_long), label: 'Order'),
-      //     BottomNavigationBarItem(icon: Icon(Icons.shopping_cart_outlined), activeIcon: Icon(Icons.shopping_cart), label: 'Basket'),
-      //     BottomNavigationBarItem(icon: Icon(Icons.person_outline), activeIcon: Icon(Icons.person), label: 'Account'),
-      //   ],
-      // ),
     );
   }
 
@@ -184,7 +161,7 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                     IconButton(
                       icon: const Icon(Icons.delete_outline, color: Colors.red, size: 20),
-                      onPressed: () => _cartService.removeItem(item.product), // Call global remove
+                      onPressed: () => _cartService.removeItem(item.product),
                       padding: EdgeInsets.zero,
                       constraints: const BoxConstraints(),
                     ),
@@ -206,14 +183,14 @@ class _CartScreenState extends State<CartScreen> {
                     Row(
                       children: [
                         _buildQtyButton(Icons.remove, () {
-                          _cartService.updateQuantity(item.product, item.quantity - 1); // Call global update
+                          _cartService.updateQuantity(item.product, item.quantity - 1);
                         }),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 12.0),
                           child: Text('${item.quantity}', style: const TextStyle(fontWeight: FontWeight.bold)),
                         ),
                         _buildQtyButton(Icons.add, () {
-                          _cartService.updateQuantity(item.product, item.quantity + 1); // Call global update
+                          _cartService.updateQuantity(item.product, item.quantity + 1);
                         }),
                       ],
                     ),

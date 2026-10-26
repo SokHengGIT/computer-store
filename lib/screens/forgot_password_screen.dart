@@ -9,7 +9,7 @@ class ForgotPasswordScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.black, // Dark app bar
+        backgroundColor: Colors.black,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.white, size: 20),
@@ -34,7 +34,7 @@ class ForgotPasswordScreen extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               const Text(
-                "We'll send a code to your mobile for\nreset password", // Exact phrasing from design
+                "We'll send a code to your mobile for\nreset password",
                 style: TextStyle(fontSize: 15, color: Colors.grey, height: 1.4),
               ),
               const SizedBox(height: 40),
@@ -56,7 +56,6 @@ class ForgotPasswordScreen extends StatelessWidget {
                 child: TextField(
                   keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
-                    // Prefix containing the Cambodian flag emoji
                     prefixIcon: const Padding(
                       padding: EdgeInsets.only(left: 16.0, right: 12.0),
                       child: Column(
@@ -87,14 +86,14 @@ class ForgotPasswordScreen extends StatelessWidget {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black, // Black button
+                    backgroundColor: Colors.black,
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
                   child: const Text(
-                    'VERIFY MOBILE NUMBER', // Preserved typo from mockup
+                    'VERIFY MOBILE NUMBER',
                     style: TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -105,7 +104,7 @@ class ForgotPasswordScreen extends StatelessWidget {
               Center(
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.pop(context); // Returns to Login Screen
+                    Navigator.pop(context);
                   },
                   child: RichText(
                     text: const TextSpan(

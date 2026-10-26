@@ -10,11 +10,7 @@ class OrderStatusScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const Color primaryThemeColor = Colors.black;
-
-    // Read the current cart and orders data
     final cartProvider = Provider.of<CartProvider>(context);
-
-    // Prioritize the explicitly passed order, then the latest completed order, then active cart items
     final targetOrder = order ?? (cartProvider.orders.isNotEmpty ? cartProvider.orders.first : null);
     final items = targetOrder != null ? targetOrder.items : cartProvider.items;
     final totalPrice = targetOrder != null ? targetOrder.totalPrice : cartProvider.totalPrice;
@@ -43,7 +39,7 @@ class OrderStatusScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
         child: Column(
           children: [
-            // --- TOP SECTION: ORDER TRACKER ---
+            // Order Tracker
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(24.0),
@@ -84,7 +80,7 @@ class OrderStatusScreen extends StatelessWidget {
             ),
             const SizedBox(height: 32),
 
-            // --- BOTTOM SECTION: DYNAMIC ORDER SUMMARY TABLE ---
+            // Order Summary Table
             Container(
               decoration: BoxDecoration(
                 color: Colors.grey.shade50,
@@ -99,7 +95,7 @@ class OrderStatusScreen extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  // Black Table Header
+                  // Table Header
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
                     decoration: const BoxDecoration(
@@ -115,7 +111,7 @@ class OrderStatusScreen extends StatelessWidget {
                     ),
                   ),
 
-                  // Dynamic Product List Rows
+                  // Product List Rows
                   if (items.isEmpty)
                     const Padding(
                       padding: EdgeInsets.all(24.0),
@@ -135,7 +131,7 @@ class OrderStatusScreen extends StatelessWidget {
                       );
                     }),
 
-                  // Black Footer / Grand Total
+                  // Grand Total
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
                     decoration: const BoxDecoration(
@@ -160,7 +156,7 @@ class OrderStatusScreen extends StatelessWidget {
     );
   }
 
-  // --- HELPER: TIMELINE TRACKER STEP ---
+  // Helper: Tracker Step
   Widget _buildTimelineStep({
     required String title,
     required Color color,
@@ -202,7 +198,7 @@ class OrderStatusScreen extends StatelessWidget {
     );
   }
 
-  // --- HELPER: DYNAMIC RECEIPT TABLE ROW ---
+  // Helper: Receipt Table Row
   Widget _buildReceiptRow({
     required String imagePath,
     required String title,
@@ -222,7 +218,7 @@ class OrderStatusScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
       child: Row(
         children: [
-          // Dynamic Product Image
+          // Product Image
           Expanded(
             flex: 2,
             child: Align(
@@ -255,7 +251,7 @@ class OrderStatusScreen extends StatelessWidget {
               style: const TextStyle(fontSize: 12, color: Colors.black87, fontWeight: FontWeight.w500),
             ),
           ),
-          // Calculated Price
+          // Price
           Expanded(
             flex: 1,
             child: Text(

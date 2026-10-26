@@ -15,10 +15,8 @@ class WelcomeScreen extends StatelessWidget {
             decoration: const BoxDecoration(
               color: Colors.black87,
               image: DecorationImage(
-                // IMPORTANT: Make sure you add a cool gaming/PC image to your assets!
                 image: AssetImage('assets/images/welcome.jpg'), 
                 fit: BoxFit.cover,
-                // This applies the dark overlay just like your teacher's code
                 colorFilter: ColorFilter.mode(Colors.black45, BlendMode.darken),
               ),
             ),
@@ -27,11 +25,11 @@ class WelcomeScreen extends StatelessWidget {
           // Foreground Content Layer
           SafeArea(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.end, // Pushes everything to the bottom
+              mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const Icon(
-                  Icons.devices_other, // PC Store theme icon
+                  Icons.devices_other,
                   color: Colors.white,
                   size: 60,
                 ),
@@ -72,7 +70,7 @@ class WelcomeScreen extends StatelessWidget {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white, // Your app's signature teal
+                        backgroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),

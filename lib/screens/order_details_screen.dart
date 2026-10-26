@@ -30,7 +30,7 @@ class OrderDetailsScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
         child: Column(
           children: [
-            // --- TOP SECTION: ORDER TRACKER ---
+            // Order Tracker
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(24.0),
@@ -50,7 +50,7 @@ class OrderDetailsScreen extends StatelessWidget {
             ),
             const SizedBox(height: 32),
 
-            // --- BOTTOM SECTION: ORDER SUMMARY TABLE ---
+            // Order Summary Table
             Container(
               decoration: BoxDecoration(
                 color: Colors.grey.shade50,
@@ -65,7 +65,7 @@ class OrderDetailsScreen extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  // Black Table Header
+                  // Table Header
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
                     decoration: const BoxDecoration(
@@ -87,7 +87,7 @@ class OrderDetailsScreen extends StatelessWidget {
                   _buildReceiptRow(Icons.mouse, '1x ASUS ROG Harpe', '\$100'),
                   _buildReceiptRow(Icons.laptop_mac, '1x ASUS ROG Strix G15 G513', '\$1700', isLast: true),
 
-                  // Black Footer / Grand Total
+                  // Grand Total
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
                     decoration: const BoxDecoration(
@@ -112,7 +112,7 @@ class OrderDetailsScreen extends StatelessWidget {
     );
   }
 
-  // --- HELPER: TIMELINE TRACKER STEP ---
+  // Helper: Tracker Step
   Widget _buildTimelineStep({
     required String title,
     required Color color,
@@ -154,7 +154,7 @@ class OrderDetailsScreen extends StatelessWidget {
     );
   }
 
-  // --- HELPER: RECEIPT ROW ---
+  // Helper: Receipt Row
   Widget _buildReceiptRow(IconData icon, String title, String price, {bool isLast = false}) {
     return Container(
       decoration: BoxDecoration(

@@ -128,7 +128,6 @@ class ThankYouScreen extends StatelessWidget {
                 width: double.infinity,
                 child: OutlinedButton(
                   onPressed: () {
-                    // Instantly resets the app back to the Home tab
                     Navigator.of(context).popUntil((route) => route.isFirst);
                     context.read<MenuService>().onPageChanged(0);
                   },

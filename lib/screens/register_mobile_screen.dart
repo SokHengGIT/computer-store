@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'otp_screen.dart'; // To route to the verification code screen
-import 'login_screen.dart'; // For the "Already have an account?" link
+import 'otp_screen.dart';
+import 'login_screen.dart';
 
 class RegisterMobileScreen extends StatelessWidget {
   const RegisterMobileScreen({super.key});
@@ -10,7 +10,7 @@ class RegisterMobileScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.black, // Dark app bar
+        backgroundColor: Colors.black,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.white, size: 20),
@@ -30,12 +30,12 @@ class RegisterMobileScreen extends StatelessWidget {
             children: [
               // Header Texts
               const Text(
-                "What't your mobile number?", // Preserved exact typo from design
+                "What't your mobile number?",
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black),
               ),
               const SizedBox(height: 12),
               const Text(
-                "We'll send a code to your mobile for\nreset password", // Reused text from forgot password screen
+                "We'll send a code to your mobile for\nreset password",
                 style: TextStyle(fontSize: 15, color: Colors.grey, height: 1.4),
               ),
               const SizedBox(height: 40),
@@ -81,7 +81,6 @@ class RegisterMobileScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Navigate to OTP Screen
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => const OtpScreen()),
@@ -95,7 +94,7 @@ class RegisterMobileScreen extends StatelessWidget {
                     ),
                   ),
                   child: const Text(
-                    'VERIFY MOBILE NYMBER', // Preserved typo
+                    'VERIFY MOBILE NYMBER',
                     style: TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -134,7 +133,7 @@ class RegisterMobileScreen extends StatelessWidget {
                   text: const TextSpan(
                     style: TextStyle(color: Colors.black, fontSize: 12, height: 1.4, fontWeight: FontWeight.w500),
                     children: [
-                      TextSpan(text: "Please note that by creating and/or using your account.\naccept our"), // Preserved line break and spacing
+                      TextSpan(text: "Please note that by creating and/or using your account.\naccept our"),
                       TextSpan(text: "Term of Usage", style: TextStyle(color: Colors.blue)),
                       TextSpan(text: " and "),
                       TextSpan(text: "Privacy Policy", style: TextStyle(color: Colors.blue)),

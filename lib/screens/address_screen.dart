@@ -8,7 +8,6 @@ class AddressScreen extends StatefulWidget {
 }
 
 class _AddressScreenState extends State<AddressScreen> {
-  // 1. State variables to track selection and data
   int _selectedIndex = 0; 
   
   final List<Map<String, dynamic>> _addresses = [
@@ -25,8 +24,6 @@ class _AddressScreenState extends State<AddressScreen> {
       'isDefault': false,
     }
   ];
-
-  // Controllers for the "Add New Address" form
   final _titleController = TextEditingController();
   final _addressController = TextEditingController();
   final _phoneController = TextEditingController();
@@ -60,7 +57,6 @@ class _AddressScreenState extends State<AddressScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // 2. Dynamic list rendering
             Expanded(
               child: ListView.separated(
                 itemCount: _addresses.length,
@@ -75,7 +71,7 @@ class _AddressScreenState extends State<AddressScreen> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
-                onPressed: _showAddAddressModal, // Triggers the bottom sheet
+                onPressed: _showAddAddressModal,
                 icon: const Icon(Icons.add, color: Colors.white),
                 label: const Text('Add New Address', style: TextStyle(color: Colors.white, fontSize: 16)),
                 style: ElevatedButton.styleFrom(
@@ -92,7 +88,7 @@ class _AddressScreenState extends State<AddressScreen> {
     );
   }
 
-  // 3. Updated Card Builder with GestureDetector and selection logic
+  // Helper: Address Card
   Widget _buildAddressCard(int index) {
     final addressData = _addresses[index];
     final bool isSelected = _selectedIndex == index;
@@ -108,7 +104,6 @@ class _AddressScreenState extends State<AddressScreen> {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
-          // Changes border thickness and color based on selection state
           border: Border.all(
             color: isSelected ? Colors.black : Colors.grey.shade300, 
             width: isSelected ? 2 : 1
@@ -167,16 +162,15 @@ class _AddressScreenState extends State<AddressScreen> {
     );
   }
 
-  // 4. Modal Bottom Sheet for adding a new address dynamically
+  // Helper: Add Address Modal
   void _showAddAddressModal() {
-    // Clear controllers before showing
     _titleController.clear();
     _addressController.clear();
     _phoneController.clear();
 
     showModalBottomSheet(
       context: context,
-      isScrollControlled: true, // Allows it to move up with the keyboard
+      isScrollControlled: true,
       backgroundColor: Colors.white,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
@@ -230,12 +224,11 @@ class _AddressScreenState extends State<AddressScreen> {
                           'title': _titleController.text,
                           'address': _addressController.text,
                           'phone': _phoneController.text,
-                          'isDefault': false, // New addresses aren't default automatically
+                          'isDefault': false,
                         });
-                        // Automatically select the newly created address
                         _selectedIndex = _addresses.length - 1; 
                       });
-                      Navigator.pop(context); // Close modal
+                      Navigator.pop(context);
                     }
                   },
                   child: const Text('Save Address', style: TextStyle(color: Colors.white)),

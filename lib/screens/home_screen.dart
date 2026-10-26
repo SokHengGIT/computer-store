@@ -12,17 +12,6 @@ import '../widgets/product_card.dart';
 import '../widgets/main_drawer.dart';
 import '../screens/category_screen.dart';
 
-
-
-// 1. Define a quick model for your Navigation items (Matching Teacher's Structure)
-class NavItem {
-  final String label;
-  final IconData icon;
-  final IconData activeIcon;
-
-  NavItem({required this.label, required this.icon, required this.activeIcon});
-}
-
 class SliderItem {
   final String imageUrl;
 
@@ -45,7 +34,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int currentSlide = 0;
 
-
   bool _isLoading = true;
   List<Product> _newArrivals = [];
   List<Product> _topRated = [];
@@ -56,15 +44,6 @@ class _HomeScreenState extends State<HomeScreen> {
     SliderItem(imageUrl: 'assets/images/banner2.png'),
     SliderItem(imageUrl: 'assets/images/banner3.png'),
   ];
-
-  // // Map your bottom navigation data here
-  // final List<NavItem> _navItems = [
-  //   NavItem(label: 'Home', icon: Icons.home_outlined, activeIcon: Icons.home),
-  //   NavItem(label: 'Goods', icon: Icons.inventory_2_outlined, activeIcon: Icons.inventory_2),
-  //   NavItem(label: 'Order', icon: Icons.receipt_long_outlined, activeIcon: Icons.receipt_long),
-  //   NavItem(label: 'Basket', icon: Icons.shopping_cart_outlined, activeIcon: Icons.shopping_cart),
-  //   NavItem(label: 'Account', icon: Icons.person_outline, activeIcon: Icons.person),
-  // ];
 
   @override
   void initState() {
@@ -129,7 +108,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.white,
       drawer: const MainDrawer(),
@@ -142,7 +120,6 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: const Icon(Icons.menu, color: Colors.black),
               onPressed: () {
                 Scaffold.of(context).openDrawer();
-                // context.read<MenuService>().onPageChanged(context.read<MenuService>().previousPage);
               },
             );
           },
@@ -156,14 +133,8 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(
             icon: const Icon(Icons.shopping_cart_outlined, color: Colors.black),
             onPressed: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => const CartScreen()),
-              // );
               context.read<MenuService>().onPageChanged(3);
-              setState(() {
-                
-              });
+              setState(() {});
             },
           ),
         ],
@@ -188,7 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15),
-                      borderSide: BorderSide(color: Colors.black),
+                      borderSide: const BorderSide(color: Colors.black),
                     ),
                   ),
                 ),
@@ -290,7 +261,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Pass the Title and the Banner Image it should load
                     _buildCategoryIcon(Icons.laptop_chromebook, 'Gaming PCs', 'assets/images/banner.png'),
                     _buildCategoryIcon(Icons.developer_board, 'GPUs', 'assets/images/banner2.png'),
                     _buildCategoryIcon(Icons.memory, 'Components', 'assets/images/banner3.png'),
@@ -300,20 +270,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               const SizedBox(height: 24),
-
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //     children: [
-              //       _buildFilterPill('ALL'),
-              //       _buildFilterPill('ALL'),
-              //       _buildFilterPill('ALL'),
-              //       _buildFilterPill('ALL'),
-              //     ],
-              //   ),
-              // ),
-              // const SizedBox(height: 24),
 
               _productSection(
                 products: _newArrivals,
@@ -339,46 +295,13 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-
-      // // 3. Dynamic Bottom Navigation (Matching Teacher's .map logic)
-      // bottomNavigationBar: BottomNavigationBar(
-      //   type: BottomNavigationBarType.fixed,
-      //   selectedItemColor: Colors.black,
-      //   unselectedItemColor: Colors.grey,
-      //   showSelectedLabels: true,
-      //   showUnselectedLabels: true,
-      //   selectedFontSize: 12,
-      //   unselectedFontSize: 12,
-      //   currentIndex: _currentNavIndex,
-      //   onTap: (index) {
-      //     if (index == 3){
-      //       Navigator.push(
-      //         context,
-      //         MaterialPageRoute(builder: (context) => const CartScreen()),
-      //       );
-      //     }else{
-      //       setState(() {
-      //       _currentNavIndex = index;
-      //     });
-      //     }
-      //   },
-      //   items: _navItems.map((item) {
-      //     return BottomNavigationBarItem(
-      //       icon: Icon(item.icon),
-      //       activeIcon: Icon(item.activeIcon),
-      //       label: item.label,
-      //     );
-      //   }).toList(),
-      // ),
     );
   }
 
   // Helper Method
-
   Widget _buildCategoryIcon(IconData icon, String label, String bannerPath) {
     return InkWell(
       onTap: () {
-        // Replaces Navigator.push to keep everything inside the MenuService memory
         context.read<MenuService>().pushCustomPage(
           CategoryScreen(
             categoryTitle: label,
@@ -409,20 +332,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildFilterPill(String text) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-      decoration: BoxDecoration(
-        color: Colors.grey.shade200,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Text(
-        text,
-        style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black87),
-      ),
-    );
-  }
-
   Widget _productSection({
     required List<Product> products,
     required bool isLoading,
@@ -438,7 +347,6 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         if (title.isNotEmpty) ...[
           _buildSectionTitle(title, onTap: () {
-            // THE ROUTING GOES HERE, WHERE jsonPath EXISTS!
             context.read<MenuService>().pushCustomPage(
               SectionProductsScreen(
                 title: title,
@@ -448,7 +356,6 @@ class _HomeScreenState extends State<HomeScreen> {
           }),
           const SizedBox(height: 16),
         ],
-        // RESTORED: The horizontal scrolling list of products
         if (isLoading)
           const Center(child: CircularProgressIndicator(color: Colors.black))
         else if (products.isEmpty)
@@ -458,19 +365,18 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         else
           SizedBox(
-            height: 260, // Adjust this height if your ProductCard gets clipped
+            height: 260,
             child: ListView.separated(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               scrollDirection: Axis.horizontal,
               itemCount: products.length,
               separatorBuilder: (context, index) => const SizedBox(width: 16),
               itemBuilder: (context, index) {
-                // Renders your custom product card for each item
                 return ProductCard(product: products[index]); 
               },
             ),
           ),
-        const SizedBox(height: 24), // Spacing before the next section
+        const SizedBox(height: 24),
       ],
     );
   }
@@ -490,7 +396,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           InkWell(
-            onTap: onTap, // JUST PUT THIS HERE
+            onTap: onTap,
             child: const Padding(
               padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
               child: Text(

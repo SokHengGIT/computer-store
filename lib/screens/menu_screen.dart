@@ -60,10 +60,9 @@ class _MenuScreenState extends State<MenuScreen> {
             value.goBack();
           },
           child: Scaffold(
-            // Layer the screens so the IndexedStack NEVER gets destroyed!
             body: Stack(
               children: [
-                // 1. The preserved main tabs (Always alive in memory)
+                // Main tabs
                 IndexedStack(
                   index: clampedIndex,
                   children: const [
@@ -75,13 +74,11 @@ class _MenuScreenState extends State<MenuScreen> {
                   ],
                 ),
                 
-                // 2. The custom page layered ON TOP if it exists
+                // Custom page layer
                 if (value.customPage != null) 
                   value.customPage!,
               ],
             ),
-            
-            // Magically hide the bottom nav if we are looking at a category/more screen
             bottomNavigationBar: value.customPage != null 
                 ? null 
                 : BottomNavigationBar(

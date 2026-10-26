@@ -61,7 +61,7 @@ class InboxScreen extends StatelessWidget {
     );
   }
 
-  // Helper method to build each row
+  // Helper
   Widget _buildInboxItem({
     required String title,
     required String subtitle,
@@ -111,7 +111,6 @@ class InboxScreen extends StatelessWidget {
         ],
       ),
       onTap: () {
-        // Future logic to read message
       },
     );
   }

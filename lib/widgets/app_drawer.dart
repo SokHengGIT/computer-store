@@ -50,9 +50,7 @@ class AppDrawer extends StatelessWidget {
       title: Text(title, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
       trailing: const Icon(Icons.chevron_right, color: Colors.grey),
       onTap: () {
-        // Pop the drawer closed first
         Navigator.pop(context);
-        // Push category screen into MenuService memory
         context.read<MenuService>().pushCustomPage(
           CategoryScreen(
             categoryTitle: title,

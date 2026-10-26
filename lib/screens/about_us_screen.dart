@@ -6,8 +6,6 @@ class AboutUsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const primaryColor = Colors.black;
-
-    // Based on your directory screenshot[cite: 7]
     final List<String> distributors = [
       'assets/images/about_us/distributors/acer.png',
       'assets/images/about_us/distributors/asus.png',
@@ -17,8 +15,6 @@ class AboutUsScreen extends StatelessWidget {
       'assets/images/about_us/distributors/logitech.png',
       'assets/images/about_us/distributors/transcend.png',
     ];
-
-    // Based on your directory screenshot[cite: 7]
     final List<String> resellers = [
       'assets/images/about_us/resellers/apple.png',
       'assets/images/about_us/resellers/intel.png',
@@ -158,7 +154,7 @@ class AboutUsScreen extends StatelessWidget {
     );
   }
 
-  // Updated to accept a list of image paths instead of using generic icons
+  // Helper
   Widget _buildPartnerGrid(List<String> imagePaths) {
     return GridView.builder(
       physics: const NeverScrollableScrollPhysics(), 

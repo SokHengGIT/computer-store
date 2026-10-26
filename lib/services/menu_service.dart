@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 class MenuService extends ChangeNotifier {
   int _currentPage = 0;
   int _previousPage = 0;
-  
-  // Holds our deep-dive screens like CategoryScreen
   Widget? _customPage; 
 
   int get currentPage => _currentPage;
@@ -13,7 +11,7 @@ class MenuService extends ChangeNotifier {
 
   void onPageChanged(int index) {
     if (_currentPage != index) {
-      _previousPage = _currentPage; // Save the state before moving
+      _previousPage = _currentPage;
       _currentPage = index;
     }
     _customPage = null; 
@@ -23,21 +21,15 @@ class MenuService extends ChangeNotifier {
   void setPreviousPage(int index) {
     _previousPage = index;
   }
-
-  // Show a category screen without using Navigator.push
   void pushCustomPage(Widget page) {
     _customPage = page;
     notifyListeners();
   }
-
-  // The teacher's custom Go Back function!
   void goBack() {
     if (_customPage != null) {
-      // If we are looking at a category/custom page, clear it to reveal the main tabs again
       _customPage = null;
       notifyListeners();
     } else {
-      // Otherwise, return to the previous tab index (or home if already matched)
       if (_currentPage == _previousPage) {
         _currentPage = 0;
       } else {

@@ -17,7 +17,6 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
   @override
   void initState() {
     super.initState();
-    // Sync any items added via CartService
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final cartProvider = Provider.of<CartProvider>(context, listen: false);
       if (CartService().items.isNotEmpty) {
@@ -97,7 +96,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                   const SizedBox(height: 24),
                 ],
 
-                // 2. Pending Cart Items Section (if any)
+                // 2. Pending Cart Items Section
                 if (hasCartItems) ...[
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -133,7 +132,6 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                   height: 54,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Proceed to checkout flow
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => const CheckoutStep1Screen()),
@@ -181,7 +179,6 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
         child: InkWell(
           borderRadius: BorderRadius.circular(16),
           onTap: () {
-            // Tap whole card to view Order Status
             Navigator.push(
               context,
               MaterialPageRoute(

@@ -9,7 +9,6 @@ class CartItem {
 }
 
 class CartService extends ChangeNotifier {
-  // Singleton pattern ensures all screens share the exact same cart instance
   static final CartService _instance = CartService._internal();
   factory CartService() => _instance;
   CartService._internal();
@@ -23,7 +22,6 @@ class CartService extends ChangeNotifier {
   }
 
   void addToCart(Product product, {int quantity = 1}) {
-    // Check if the item is already in the cart
     final existingIndex = _items.indexWhere((item) => item.product.id == product.id);
 
     if (existingIndex >= 0) {
@@ -31,7 +29,7 @@ class CartService extends ChangeNotifier {
     } else {
       _items.add(CartItem(product: product, quantity: quantity));
     }
-    notifyListeners(); // Tells the UI to update
+    notifyListeners();
   }
 
   void addRawItem({

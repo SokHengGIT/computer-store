@@ -363,17 +363,14 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       height: 46,
                       child: ElevatedButton(
                 onPressed: () {
-                  // Create a CartItem from the current screen's data
                   final newItem = CartItem(
-                    id: DateTime.now().toString(), // Generates a unique ID
+                    id: DateTime.now().toString(),
                     name: name,
                     subtitle: widget.product['category'] ?? 'PC Hardware',
                     price: price,
                     image: imageUrl,
-                    quantity: quantity, // The quantity selected on this screen
+                    quantity: quantity,
                   );
-
-                  // Send it to the global state
                   Provider.of<CartProvider>(context, listen: false).addToCart(newItem);
                   CartService().addRawItem(
                     id: newItem.id,
@@ -383,8 +380,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     imageUrl: newItem.image,
                     quantity: newItem.quantity,
                   );
-
-                  // Show a success message
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text('${quantity}x $name added to basket!'),
@@ -626,7 +621,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         ),
       ),
 
-      // 9. Bottom Navigation Bar matching design mockup
+      // 9. Bottom Navigation Bar
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,

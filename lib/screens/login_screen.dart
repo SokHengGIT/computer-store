@@ -1,6 +1,6 @@
 import 'package:computer_store_app/screens/forgot_password_screen.dart';
 import 'package:flutter/material.dart';
-import 'menu_screen.dart'; // To route into the app after successful login
+import 'menu_screen.dart';
 import 'welcome_screen.dart';
 import 'register_screen.dart';
 
@@ -17,7 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.black, // Dark app bar matching the design
+        backgroundColor: Colors.black,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.white, size: 20),
@@ -85,14 +85,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Route directly into the main app layout
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => const MenuScreen()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black, // Black button
+                    backgroundColor: Colors.black,
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -106,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 16),
 
-              // Register Now Link (with exact typo from design)
+              // Register Now Link
               Center(
                 child: GestureDetector(
                   onTap: () {
@@ -117,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   child: RichText(
                     text: const TextSpan(
-                      text: "don't have an acccount? ", // Typo maintained for fidelity
+                      text: "don't have an acccount? ",
                       style: TextStyle(color: Colors.black87, fontSize: 13),
                       children: [
                         TextSpan(
@@ -136,16 +135,16 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  // Custom helper to build the elevated text fields
+  // Helper
   Widget _buildShadowedTextField({required String hintText, bool isPassword = false}) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12), // Pill-like rounded corners
+        borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.grey.shade300),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withValues(alpha: 0.15), // Subtle drop shadow
+            color: Colors.grey.withValues(alpha: 0.15),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),

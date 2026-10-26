@@ -39,15 +39,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
   bool _isLoading = true;
   String _searchQuery = '';
   final TextEditingController _searchController = TextEditingController();
-
-  // Banner carousel state matching home_screen.dart
   int _currentSlide = 0;
   List<SliderItem> _sliders = [];
-
-  // Track currently selected category in state
   late String _currentCategory;
-
-  // Master list of categories with direct JSON file mapping
   final List<Map<String, String>> _categoriesList = [
     {'title': 'Gaming PCs', 'json': 'assets/json/gaming_pcs.json'},
     {'title': 'GPUs', 'json': 'assets/json/gpus.json'},
@@ -66,7 +60,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
   @override
   void initState() {
     super.initState();
-    // Initialize with the clicked category, or default to the first
     final initial = widget.categoryTitle.trim();
     final matched = _categoriesList.firstWhere(
       (c) => c['title']!.toLowerCase() == initial.toLowerCase(),
@@ -93,8 +86,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
     final clean = category.toLowerCase().trim().replaceAll(' ', '_');
     return 'assets/json/$clean.json';
   }
-
-  // Load banner carousel from assets/json/category_sliders.json (with optional category-specific override)
   Future<void> _loadSliders() async {
     final categoryKey = _currentCategory.toLowerCase().trim().replaceAll(' ', '_');
     final categorySpecificPath = 'assets/json/category_sliders_$categoryKey.json';
@@ -133,8 +124,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
       }
     }
   }
-
-  // Load products from the category's dedicated JSON file
   Future<void> _loadCategoryData() async {
     if (mounted) {
       setState(() => _isLoading = true);
@@ -351,7 +340,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
           ),
           const SizedBox(height: 14),
 
-          // 3. Dynamic Banner Carousel (matches home_screen.dart, loads from category_sliders.json)
+          // 3. Banner Carousel
           _buildBannerSection(),
 
           const SizedBox(height: 16),
@@ -407,7 +396,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
     );
   }
 
-  // Banner Section using CarouselSlider matching home_screen.dart
+  // Banner Section
   Widget _buildBannerSection() {
     final slidersToDisplay = _sliders.isNotEmpty ? _sliders : _defaultSliders;
 

@@ -8,7 +8,6 @@ class FilterSettingsSheet extends StatefulWidget {
 }
 
 class _FilterSettingsSheetState extends State<FilterSettingsSheet> {
-  // Local state for the filter panel
   RangeValues _priceRange = const RangeValues(500, 2500);
   final List<String> _categories = ['Desktops', 'Laptops', 'Components', 'Accessories'];
   String _selectedCategory = 'Laptops';
@@ -17,7 +16,7 @@ class _FilterSettingsSheetState extends State<FilterSettingsSheet> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        color: Color(0xFFF7F7F7), // Matches the sort sheet background
+        color: Color(0xFFF7F7F7),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(24),
           topRight: Radius.circular(24),
@@ -126,7 +125,6 @@ class _FilterSettingsSheetState extends State<FilterSettingsSheet> {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                // Return the filtered data map back to the Listing Screen
                 Navigator.pop(context, {
                   'minPrice': _priceRange.start,
                   'maxPrice': _priceRange.end,
@@ -134,7 +132,7 @@ class _FilterSettingsSheetState extends State<FilterSettingsSheet> {
                 });
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF141414), // Dark black to match Sort sheet
+                backgroundColor: const Color(0xFF141414),
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),

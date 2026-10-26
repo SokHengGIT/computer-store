@@ -12,12 +12,10 @@ class PcFinderScreen extends StatefulWidget {
 }
 
 class _PcFinderScreenState extends State<PcFinderScreen> {
-  // 1. Questionnaire State Variables
   double _currentBudget = 1200.0;
-  String _formFactor = 'Desktop'; // Options: Desktop, Laptop
-  String _primaryUse = 'Gaming'; // Options: Gaming, Productivity
+  String _formFactor = 'Desktop';
+  String _primaryUse = 'Gaming';
 
-  // 2. Data State
   bool _isLoading = true;
   List<Product> _allProducts = [];
   List<Product> _recommendedProducts = [];
@@ -28,12 +26,10 @@ class _PcFinderScreenState extends State<PcFinderScreen> {
     _loadAllProducts();
   }
 
-  // Load all available products into memory
   Future<void> _loadAllProducts() async {
     setState(() => _isLoading = true);
 
     try {
-      // In a real scenario, you'd load multiple JSONs or a master inventory file
       final String laptopRes = await rootBundle.loadString('assets/json/gaming_laptops.json');
       final String desktopRes = await rootBundle.loadString('assets/json/new_arrivals.json');
       
@@ -45,7 +41,7 @@ class _PcFinderScreenState extends State<PcFinderScreen> {
         ...desktopData.map((json) => Product.fromJson(json)),
       ];
       
-      _runFilteringAlgorithm(); // Run initial filter
+      _runFilteringAlgorithm();
 
     } catch (e) {
       debugPrint("Error loading products: $e");
@@ -54,22 +50,13 @@ class _PcFinderScreenState extends State<PcFinderScreen> {
     setState(() => _isLoading = false);
   }
 
-  // 3. The Core Filtering Algorithm (The "Brain" of Member 3's task)
   void _runFilteringAlgorithm() {
     setState(() {
       _recommendedProducts = _allProducts.where((product) {
-        // Condition A: Must be under or equal to the user's budget
         bool withinBudget = product.price <= _currentBudget;
-        
-        // Condition B: Must match the requested form factor (Laptop vs Desktop)
         bool matchesForm = product.category == _formFactor;
-        
-        // Condition C: Example of reading the nested specs map for advanced matching
-        // If they want a laptop under $1700, the algorithm can easily surface an Intel Core i7 14th Gen / RTX 5060 build
-        // If they want a desktop under $1000, it looks for an i5-14400F / B760 combination.
         bool matchesUse = true; 
         if (_primaryUse == 'Gaming' && product.specs != null) {
-          // You can add specific spec checks here later, like ensuring a dedicated GPU exists
           matchesUse = product.specs!.containsKey('gpu') || product.category == 'Desktop';
         }
 
@@ -95,7 +82,7 @@ class _PcFinderScreenState extends State<PcFinderScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // --- QUESTIONNAIRE UI ---
+                // Questionnaire
                 const Text('What is your max budget?', style: TextStyle(fontWeight: FontWeight.bold)),
                 Row(
                   children: [
@@ -104,13 +91,13 @@ class _PcFinderScreenState extends State<PcFinderScreen> {
                         value: _currentBudget,
                         min: 500,
                         max: 3000,
-                        divisions: 25, // Snaps to $100 increments
+                        divisions: 25,
                         activeColor: Colors.black,
                         label: '\$${_currentBudget.toInt()}',
                         onChanged: (value) {
                           setState(() {
                             _currentBudget = value;
-                            _runFilteringAlgorithm(); // Update results in real-time
+                            _runFilteringAlgorithm();
                           });
                         },
                       ),
@@ -176,7 +163,7 @@ class _PcFinderScreenState extends State<PcFinderScreen> {
                 ),
                 const Divider(height: 40, thickness: 1),
 
-                // --- RESULTS UI ---
+                // Results
                 Text(
                   'Recommended for you (${_recommendedProducts.length}):',
                   style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -195,7 +182,7 @@ class _PcFinderScreenState extends State<PcFinderScreen> {
                     : GridView.builder(
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
-                          childAspectRatio: 0.75, // Adjusts the card height/width ratio
+                          childAspectRatio: 0.75,
                           crossAxisSpacing: 12,
                           mainAxisSpacing: 12,
                         ),

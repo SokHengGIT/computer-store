@@ -9,7 +9,6 @@ class CheckoutStep1Screen extends StatefulWidget {
 }
 
 class _CheckoutStep1ScreenState extends State<CheckoutStep1Screen> {
-  // State for the selected shipping method (Default is 'Airway')[cite: 4]
   String _selectedShipping = 'Airway Shipping';
 
   @override
@@ -35,7 +34,7 @@ class _CheckoutStep1ScreenState extends State<CheckoutStep1Screen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Step Progress Indicator (Address vs Credit Card)[cite: 4]
+              // Step Progress Indicator
               Row(
                 children: [
                   Expanded(
@@ -74,7 +73,7 @@ class _CheckoutStep1ScreenState extends State<CheckoutStep1Screen> {
               ),
               const SizedBox(height: 32),
 
-              // Home Address Card[cite: 4]
+              // Home Address Card
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(20),
@@ -88,7 +87,7 @@ class _CheckoutStep1ScreenState extends State<CheckoutStep1Screen> {
                     Text('Home Address', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                     SizedBox(height: 8),
                     Text(
-                      'No.99, ST271, Toul kork, phnom penh,\ncambodia', // Phin's exact mock address[cite: 4]
+                      'No.99, ST271, Toul kork, phnom penh,\ncambodia',
                       style: TextStyle(color: Colors.black87, height: 1.5),
                     ),
                   ],
@@ -96,14 +95,14 @@ class _CheckoutStep1ScreenState extends State<CheckoutStep1Screen> {
               ),
               const SizedBox(height: 32),
 
-              // Shipping Method Title[cite: 4]
+              // Shipping Method
               const Text(
                 'Shipping Method',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               const SizedBox(height: 16),
 
-              // Shipping Options[cite: 4]
+              // Shipping Options
               _buildShippingOption('Airway Shipping', 'Very-Fast'),
               const SizedBox(height: 12),
               _buildShippingOption('Land Shipping', 'Fast'),
@@ -115,7 +114,7 @@ class _CheckoutStep1ScreenState extends State<CheckoutStep1Screen> {
         ),
       ),
       
-      // Bottom "Check Out" Button[cite: 4]
+      // Check Out Button
       bottomNavigationBar: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
@@ -143,7 +142,7 @@ class _CheckoutStep1ScreenState extends State<CheckoutStep1Screen> {
     );
   }
 
-  // Helper for the Shipping Option Cards[cite: 4]
+  // Helper
   Widget _buildShippingOption(String title, String subtitle) {
     bool isSelected = _selectedShipping == title;
     
@@ -171,7 +170,6 @@ class _CheckoutStep1ScreenState extends State<CheckoutStep1Screen> {
                 Text(subtitle, style: const TextStyle(color: Colors.grey, fontSize: 14)),
               ],
             ),
-            // Custom Radio Button Circle
             Container(
               width: 24,
               height: 24,

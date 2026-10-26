@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '../screens/product_detail_screen.dart';
-import '../providers/wishlist_provider.dart'; // To keep the heart icons functional
+import '../providers/wishlist_provider.dart';
 
 class SectionProductsScreen extends StatefulWidget {
   final String title;
@@ -64,7 +64,6 @@ class _SectionProductsScreenState extends State<SectionProductsScreen> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black, size: 20),
           onPressed: () {
-             // Closes the custom page and restores your home screen state seamlessly
              context.read<MenuService>().goBack();
           },
         ),
@@ -127,13 +126,11 @@ class _SectionProductsScreenState extends State<SectionProductsScreen> {
                               ? Image.network(
                                   imagePath, 
                                   fit: BoxFit.contain,
-                                  // Added shield for broken network links
                                   errorBuilder: (context, error, stackTrace) => const Icon(Icons.computer, size: 50, color: Colors.grey),
                                 )
                               : Image.asset(
                                   imagePath, 
                                   fit: BoxFit.contain,
-                                  // Added shield for missing local assets!
                                   errorBuilder: (context, error, stackTrace) => const Icon(Icons.computer, size: 50, color: Colors.grey),
                                 ))
                           : const Icon(Icons.computer, size: 50, color: Colors.grey),

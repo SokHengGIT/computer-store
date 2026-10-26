@@ -1,11 +1,7 @@
 import 'package:computer_store_app/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-// Import your services
 import '../services/menu_service.dart';
-
-// Import your screens
 import '../screens/pc_finder_screen.dart'; 
 import '../screens/about_us_screen.dart'; 
 import '../screens/address_screen.dart';
@@ -24,7 +20,7 @@ class MainDrawer extends StatelessWidget {
           // User Profile Header
           Container(
             width: double.infinity,
-            color: const Color(0xFF222222), // Dark grey/black background
+            color: const Color(0xFF222222),
             padding: const EdgeInsets.only(top: 70, bottom: 30),
             child: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -56,16 +52,16 @@ class MainDrawer extends StatelessWidget {
                   Icons.home_outlined, 
                   'Home', 
                   onTap: () {
-                    Navigator.pop(context); // Close the drawer
-                    context.read<MenuService>().onPageChanged(0); // Switch to Home Tab
+                    Navigator.pop(context);
+                    context.read<MenuService>().onPageChanged(0);
                   }
                 ),
                 _buildDrawerItem(
                   Icons.person_outline, 
                   'Profile',
                   onTap: () {
-                    Navigator.pop(context); // Close the drawer
-                    context.read<MenuService>().onPageChanged(4); // Switch to Profile Tab
+                    Navigator.pop(context);
+                    context.read<MenuService>().onPageChanged(4);
                   }
                 ),
                 _buildDrawerItem(

@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/wishlist_provider.dart';
-import '../screens/product_detail_screen.dart'; // To make wishlist items clickable
+import '../screens/product_detail_screen.dart';
 
 class WishlistScreen extends StatelessWidget {
   const WishlistScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Listen to the live wishlist data
     final wishlist = context.watch<WishlistProvider>().items;
 
     return Scaffold(
@@ -57,14 +56,11 @@ class WishlistScreen extends StatelessWidget {
   }
 
   Widget _buildWishlistItem(BuildContext context, Map<String, dynamic> product) {
-    // Handle dynamic image keys safely
     final String imagePath = (product['imageUrl'] ?? product['image'] ?? '').toString();
-    // Default to 5.0 stars if your JSON doesn't include a 'rating' key yet
     final double rating = (product['rating'] as num?)?.toDouble() ?? 5.0;
 
     return GestureDetector(
       onTap: () {
-        // Tapping a wishlist item opens its full details
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => ProductDetailScreen(product: product)),
@@ -120,7 +116,6 @@ class WishlistScreen extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.favorite, color: Color(0xFFD32F2F), size: 20),
             onPressed: () {
-              // Tapping it here removes it from the wishlist
               context.read<WishlistProvider>().toggleWishlist(product);
             },
           ),

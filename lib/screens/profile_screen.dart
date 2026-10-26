@@ -1,3 +1,4 @@
+import 'package:computer_store_app/screens/personal_information_screen.dart';
 import 'package:flutter/material.dart';
 import '../screens/inbox_screen.dart';
 import '../screens/offers_screen.dart';
@@ -32,7 +33,7 @@ class ProfileScreen extends StatelessWidget {
                   children: [
                     const CircleAvatar(
                       radius: 50,
-                      backgroundImage: AssetImage('assets/images/users/hengrithik.png'), // Reusing the asset from your sidebar
+                      backgroundImage: AssetImage('assets/images/users/hengrithik.png'),
                       backgroundColor: Colors.grey,
                     ),
                     Positioned(
@@ -68,7 +69,12 @@ class ProfileScreen extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => PersonalInformationScreen())
+                      );
+                    },
                     icon: const Icon(Icons.edit_outlined, color: Colors.white, size: 18),
                     label: const Text('Edit Profile', style: TextStyle(color: Colors.white, fontSize: 16)),
                     style: ElevatedButton.styleFrom(
@@ -93,7 +99,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 
-                // List Items (Strictly matching the Figma design)
+                // List Items
                 _buildListTile(
                   Icons.email, 
                   Colors.black, 
@@ -111,7 +117,7 @@ class ProfileScreen extends StatelessWidget {
                   Colors.black, 
                   'Offers & promo code', 
                   'View available deals',
-                  onTap: () { // Add this tap handler!
+                  onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => const OffersScreen()),
@@ -130,9 +136,9 @@ class ProfileScreen extends StatelessWidget {
                 _buildListTile(
                   Icons.favorite_border, 
                   Colors.black, 
-                  'Wishtlist', // Kept your spelling
+                  'Wishtlist',
                   'Your saved products',
-                  onTap: () { // ADD THIS TAP HANDLER
+                  onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => const WishlistScreen()),
@@ -144,7 +150,7 @@ class ProfileScreen extends StatelessWidget {
                   Colors.black, 
                   'Setting', 
                   'Account & app settings',
-                  onTap: () { // Add this tap handler!
+                  onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => const SettingsScreen()),
@@ -159,7 +165,7 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  // Helper method for the list tiles
+  // Helper
   Widget _buildListTile(IconData icon, Color iconColor, String title, String subtitle, {VoidCallback? onTap}) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),

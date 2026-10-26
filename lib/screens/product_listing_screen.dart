@@ -41,12 +41,10 @@ class _ProductListingScreenState extends State<ProductListingScreen> {
 
   Future<void> _loadProductsFromJson() async {
     try {
-      // 1. Correct JSON asset path matching pubspec.yaml assets/json/
       final String response = await rootBundle.loadString('assets/json/products.json');
       final dynamic decoded = json.decode(response);
       
       final List<Product> loaded = [];
-      // 2. Safely parse whether root is a List or a Map with 'products'
       final rawList = decoded is List
           ? decoded
           : (decoded is Map ? (decoded['products'] as List? ?? []) : []);
@@ -72,8 +70,6 @@ class _ProductListingScreenState extends State<ProductListingScreen> {
 
   void _applyFilterAndSort() {
     List<Product> list = List.from(_allProducts);
-
-    // Search query filter
     if (_searchQuery.trim().isNotEmpty) {
       final q = _searchQuery.trim().toLowerCase();
       list = list.where((p) {
@@ -84,8 +80,6 @@ class _ProductListingScreenState extends State<ProductListingScreen> {
             p.category.toLowerCase().contains(q);
       }).toList();
     }
-
-    // Active filters (Category & Price range)
     if (_activeFilters != null) {
       final minPrice = (_activeFilters!['minPrice'] as num?)?.toDouble() ?? 0.0;
       final maxPrice = (_activeFilters!['maxPrice'] as num?)?.toDouble() ?? double.infinity;
@@ -103,8 +97,6 @@ class _ProductListingScreenState extends State<ProductListingScreen> {
         return matchesPrice && matchesCategory;
       }).toList();
     }
-
-    // Sort options
     switch (_currentSort) {
       case 'Price: Low to High':
         list.sort((a, b) => a.price.compareTo(b.price));
@@ -162,8 +154,6 @@ class _ProductListingScreenState extends State<ProductListingScreen> {
       });
     }
   }
-
-  // --- UI Build ---
 
   @override
   Widget build(BuildContext context) {
@@ -259,7 +249,7 @@ class _ProductListingScreenState extends State<ProductListingScreen> {
             ),
           ),
 
-          // Search Field (toggleable)
+          // Search Field
           if (_isSearchOpen)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
@@ -323,7 +313,7 @@ class _ProductListingScreenState extends State<ProductListingScreen> {
     );
   }
 
-  // Helper for the Pill-shaped Filter/Sort Buttons
+  // Helper
   Widget _buildActionButton({
     required IconData icon, 
     required String label, 
@@ -439,7 +429,6 @@ class _ProductListingScreenState extends State<ProductListingScreen> {
                     right: 0,
                     child: Builder(
                       builder: (context) {
-                        // Package the model into the Map structure your Wishlist expects
                         final productMap = {
                           'id': product.id,
                           'name': product.name,
@@ -460,7 +449,6 @@ class _ProductListingScreenState extends State<ProductListingScreen> {
                             color: isSaved ? const Color(0xFFD32F2F) : Colors.grey.shade400,
                           ),
                           onPressed: () {
-                            // Toggles the item in global memory and instantly updates the UI
                             context.read<WishlistProvider>().toggleWishlist(productMap);
                           },
                         );

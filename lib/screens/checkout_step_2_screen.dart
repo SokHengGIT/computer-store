@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/cart_provider.dart' hide CartItem;
 import '../services/cart_service.dart';
-import 'thank_you_screen.dart'; // We will build this next!
+import 'thank_you_screen.dart';
 
 class CheckoutStep2Screen extends StatefulWidget {
   const CheckoutStep2Screen({super.key});
@@ -35,12 +35,12 @@ class _CheckoutStep2ScreenState extends State<CheckoutStep2Screen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Step Progress Indicator (Flipped for Step 2)
+              // Step Progress Indicator
               Row(
                 children: [
                   Expanded(
                     child: GestureDetector(
-                      onTap: () => Navigator.pop(context), // Go back to Address step
+                      onTap: () => Navigator.pop(context),
                       child: Container(
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         decoration: BoxDecoration(
@@ -77,7 +77,7 @@ class _CheckoutStep2ScreenState extends State<CheckoutStep2Screen> {
               ),
               const SizedBox(height: 32),
 
-              // Credit Card Form Box[cite: 2]
+              // Credit Card Form
               Container(
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey.shade400),
@@ -88,12 +88,12 @@ class _CheckoutStep2ScreenState extends State<CheckoutStep2Screen> {
                   children: [
                     _buildTextField('Credit Card Holder'),
                     const Divider(height: 1, color: Colors.grey),
-                    _buildTextField('Credit Card Nmber'), // Kept Phin's typo from the design for authenticity, you can fix it to 'Number'![cite: 2]
+                    _buildTextField('Credit Card Nmber'),
                     const Divider(height: 1, color: Colors.grey),
                     Row(
                       children: [
                         Expanded(child: _buildTextField('Expire Date: 01/30')),
-                        Container(width: 1, height: 50, color: Colors.grey), // Vertical divider[cite: 2]
+                        Container(width: 1, height: 50, color: Colors.grey),
                         Expanded(child: _buildTextField('CVV: 999')),
                       ],
                     ),
@@ -105,7 +105,7 @@ class _CheckoutStep2ScreenState extends State<CheckoutStep2Screen> {
         ),
       ),
       
-      // Bottom "Check Out" Button[cite: 2]
+      // Check Out Button
       bottomNavigationBar: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
@@ -138,7 +138,7 @@ class _CheckoutStep2ScreenState extends State<CheckoutStep2Screen> {
     );
   }
 
-  // Helper for clean, borderless text fields inside the container[cite: 2]
+  // Helper
   Widget _buildTextField(String hint) {
     return TextFormField(
       decoration: InputDecoration(

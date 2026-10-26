@@ -8,7 +8,7 @@ class DarkModeScreen extends StatefulWidget {
 }
 
 class _DarkModeScreenState extends State<DarkModeScreen> {
-  String _selectedMode = 'Light Mode'; // Defaulting to light since the app is currently light themed
+  String _selectedMode = 'Light Mode';
 
   @override
   Widget build(BuildContext context) {

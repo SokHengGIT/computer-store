@@ -3,8 +3,6 @@ import 'package:computer_store_app/screens/help_support_screen.dart';
 import 'package:computer_store_app/screens/notifications_screen.dart';
 import 'package:computer_store_app/screens/privacy_policy_screen.dart';
 import 'package:flutter/material.dart';
-
-// Import your new screens
 import '../screens/personal_information_screen.dart';
 import '../screens/change_password_screen.dart';
 import '../screens/language_screen.dart';
@@ -184,7 +182,7 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-  // Updated to accept context and an optional onTap callback
+  // Helper
   Widget _buildSettingItem({
     required BuildContext context,
     required IconData icon,
@@ -196,7 +194,6 @@ class SettingsScreen extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 16.0),
       child: InkWell(
         onTap: onTap ?? () {
-          // Fallback for unbuilt screens so the app feels responsive during the presentation
           ScaffoldMessenger.of(context).hideCurrentSnackBar();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

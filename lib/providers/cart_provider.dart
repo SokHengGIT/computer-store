@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// A simple model to hold the data for each cart item
 class CartItem {
   final String id;
   final String name;
@@ -19,7 +18,6 @@ class CartItem {
   });
 }
 
-// A model to hold placed order history
 class OrderItem {
   final String orderId;
   final DateTime date;
@@ -40,8 +38,6 @@ class CartProvider with ChangeNotifier {
 
   List<CartItem> get items => _items;
   List<OrderItem> get orders => _orders;
-
-  // Calculates the grand total dynamically
   double get totalPrice {
     return _items.fold(0, (total, item) => total + (item.price * item.quantity));
   }
@@ -63,19 +59,16 @@ class CartProvider with ChangeNotifier {
   }
 
   void addToCart(CartItem newItem) {
-    // Check if the item is already in the cart
     final existingIndex = _items.indexWhere(
       (item) => item.name == newItem.name || (item.id.isNotEmpty && item.id == newItem.id),
     );
 
     if (existingIndex >= 0) {
-      // If it exists, just increase the quantity
       _items[existingIndex].quantity += newItem.quantity;
     } else {
-      // Otherwise, add the new item
       _items.add(newItem);
     }
-    notifyListeners(); // Tells the UI to rebuild
+    notifyListeners();
   }
 
   void syncWithCartService(List<dynamic> serviceItems) {

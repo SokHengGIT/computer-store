@@ -43,7 +43,7 @@ class ProductCard extends StatelessWidget {
                     'name': product.name,
                     'description': product.description,
                     'imageUrl': product.imageUrl,
-                    'image': product.imageUrl, // Safe fallback
+                    'image': product.imageUrl,
                     'price': product.price,
                     'rating': product.rating,
                     'specs': product.specsText.isNotEmpty ? product.specsText : (product.subtitle ?? ''),
@@ -139,7 +139,7 @@ class ProductCard extends StatelessWidget {
             ],
             const SizedBox(height: 8),
 
-            // 4. Price in gold/amber color
+            // 4. Price
             Text(
               _formatPrice(product.price),
               style: const TextStyle(
@@ -150,12 +150,11 @@ class ProductCard extends StatelessWidget {
             ),
             const SizedBox(height: 8),
 
-            // 5. Bottom Row: Circular Add Button & Stars Rating
+            // 5. Bottom Row
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // Circular Add Button with Drop Shadow
                 Material(
                   color: Colors.transparent,
                   child: InkWell(
@@ -197,8 +196,6 @@ class ProductCard extends StatelessWidget {
                     ),
                   ),
                 ),
-
-                // Star Rating matching Figma gold stars
                 Row(
                   children: List.generate(5, (index) {
                     final isFilled = index < product.rating.round();

@@ -50,7 +50,7 @@ class _OtpScreenState extends State<OtpScreen> {
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
-          'Register', // Matching the exact title from the mockup
+          'Register',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
         ),
         centerTitle: true,
@@ -75,7 +75,7 @@ class _OtpScreenState extends State<OtpScreen> {
               ),
               const SizedBox(height: 4),
               const Text(
-                '+855123456789', // Mock Cambodian number from the design
+                '+855123456789',
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.black),
               ),
               const SizedBox(height: 40),
@@ -87,7 +87,7 @@ class _OtpScreenState extends State<OtpScreen> {
               ),
               const SizedBox(height: 20),
 
-              // Countdown Timer (with exact typo from design)
+              // Countdown Timer
               Text(
                 'Your code will expired: $_secondsRemaining',
                 style: const TextStyle(fontSize: 12, color: Colors.black, fontWeight: FontWeight.w500),
@@ -123,7 +123,6 @@ class _OtpScreenState extends State<OtpScreen> {
               Center(
                 child: GestureDetector(
                   onTap: () {
-                    // Reset timer logic
                     setState(() => _secondsRemaining = 180);
                   },
                   child: const Text(
@@ -139,7 +138,7 @@ class _OtpScreenState extends State<OtpScreen> {
     );
   }
 
-  // Helper widget to build individual OTP boxes
+  // Helper
   Widget _buildOtpBox(BuildContext context) {
     return SizedBox(
       width: 48,
@@ -149,7 +148,7 @@ class _OtpScreenState extends State<OtpScreen> {
         keyboardType: TextInputType.number,
         style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         inputFormatters: [
-          LengthLimitingTextInputFormatter(1), // Restricts to 1 character
+          LengthLimitingTextInputFormatter(1),
           FilteringTextInputFormatter.digitsOnly,
         ],
         decoration: InputDecoration(
@@ -170,7 +169,6 @@ class _OtpScreenState extends State<OtpScreen> {
           contentPadding: EdgeInsets.zero,
         ),
         onChanged: (value) {
-          // Auto-jump to the next box when a number is typed
           if (value.isNotEmpty) {
             FocusScope.of(context).nextFocus();
           }

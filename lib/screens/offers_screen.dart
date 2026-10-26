@@ -158,7 +158,7 @@ class _OffersScreenState extends State<OffersScreen> {
     );
   }
 
-  // Helper method for each Promo item
+  // Helper
   Widget _buildPromoCard({
     required BuildContext context,
     required String title,
